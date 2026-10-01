@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Archivo', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  input { font-family: inherit; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  ::-webkit-scrollbar { width: 0; height: 0; }
+  @keyframes wl-drift { to { transform: translateX(-50%); } }
+  @keyframes wl-bloom { 0% { transform: scale(.25); opacity: 0; } 55% { opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+  @keyframes wl-wash { 0% { clip-path: inset(100% 0 0 0); } 100% { clip-path: inset(0 0 0 0); } }
+  @keyframes wl-snap { 0% { opacity: 0; transform: scale(1.04); } 7% { opacity: 1; } 15% { opacity: .25; } 26% { opacity: 1; } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes wl-pop { 0% { transform: translateY(16px) scale(.96); } 100% { transform: translateY(0) scale(1); } }
+  @keyframes wl-glow { 0%, 100% { box-shadow: 0 0 60px 4px var(--c), inset 0 0 40px rgba(255,255,255,.35); } 50% { box-shadow: 0 0 120px 22px var(--c), inset 0 0 60px rgba(255,255,255,.5); } }
+  @keyframes wl-ring { 0% { transform: scale(.55); opacity: .65; } 100% { transform: scale(2.1); opacity: 0; } }
+  @keyframes wl-float { 0% { transform: translateY(10px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+  @keyframes wl-livedot { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+  @keyframes wl-sheet { 0% { transform: translateY(100%); } 100% { transform: translateY(0); } }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; width: 100%; background: radial-gradient(120% 120% at 50% 0%, #efede7 0%, #ddd9d0 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding: 40px 16px; font-family: 'Archivo', sans-serif;">
+
+  <div style="position: relative; width: 408px; max-width: 100%; padding: {{ bezelPad }}; background: #0a0b0e; border-radius: {{ bezelRadius }}; box-shadow: 0 50px 90px -30px rgba(20,18,14,.55), 0 0 0 1px rgba(0,0,0,.4);">
+    <div style="position: relative; width: 100%; height: 818px; border-radius: {{ screenRadius }}; overflow: hidden; background: #101116; --c: {{ c }}; --cd: {{ cDeep }}; --cs: {{ cSoft }};">
+
+      <!-- STATUS BAR -->
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 52px; padding: 16px 26px 0; display: flex; align-items: center; justify-content: space-between; z-index: 40; pointer-events: none; color: #fff;">
+        <div style="font-size: 15px; font-weight: 700; letter-spacing: .2px;">9:41</div>
+        <div style="display: flex; align-items: center; gap: 6px; opacity: .92;">
+          <div style="display: flex; gap: 2px; align-items: flex-end; height: 11px;"><span style="width: 3px; height: 5px; background: currentColor; border-radius: 1px;"></span><span style="width: 3px; height: 7px; background: currentColor; border-radius: 1px;"></span><span style="width: 3px; height: 9px; background: currentColor; border-radius: 1px;"></span><span style="width: 3px; height: 11px; background: currentColor; border-radius: 1px;"></span></div>
+          <div style="width: 22px; height: 11px; border: 1.5px solid currentColor; border-radius: 3px; padding: 1.5px; opacity: .9;"><div style="width: 80%; height: 100%; background: currentColor; border-radius: 1px;"></div></div>
+        </div>
+      </div>
+      <div style="position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 118px; height: 30px; background: #000; border-radius: 18px; z-index: 41;"></div>
+
+      <!-- ============ LANDING ============ -->
+      <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+        <div style="position: absolute; inset: 0; background: radial-gradient(130% 90% at 50% -10%, #1c1f2b 0%, #0c0d12 70%); display: flex; flex-direction: column; padding: 86px 30px 36px; color: #fff; overflow: hidden;">
+          <div style="position: absolute; bottom: -40px; left: -10%; width: 220%; opacity: .5; animation: wl-drift 9s linear infinite;">
+            <svg viewBox="0 0 200 40" width="100%" height="160" preserveAspectRatio="none"><path d="M0 20 Q 12.5 2 25 20 T 50 20 T 75 20 T 100 20 T 125 20 T 150 20 T 175 20 T 200 20" fill="none" stroke="url(#wlg)" stroke-width="2.4"></path><defs><linearGradient id="wlg" x1="0" x2="1"><stop offset="0" stop-color="#06b6a4"></stop><stop offset=".35" stop-color="#7a4dff"></stop><stop offset=".6" stop-color="#ff6b5e"></stop><stop offset=".8" stop-color="#2e6bff"></stop><stop offset="1" stop-color="#f5a300"></stop></linearGradient></defs></svg>
+          </div>
+          <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 26px; position: relative;">
+            <div style="display: flex; gap: 7px;">
+              <span style="width: 14px; height: 14px; border-radius: 50%; background: #06b6a4;"></span>
+              <span style="width: 14px; height: 14px; border-radius: 50%; background: #7a4dff;"></span>
+              <span style="width: 14px; height: 14px; border-radius: 50%; background: #ff6b5e;"></span>
+              <span style="width: 14px; height: 14px; border-radius: 50%; background: #2e6bff;"></span>
+              <span style="width: 14px; height: 14px; border-radius: 50%; background: #f5a300;"></span>
+            </div>
+            <div>
+              <div style="font-size: 44px; font-weight: 900; letter-spacing: -1.5px; line-height: 1; padding-bottom: 2px;">Wavelength</div>
+              <div style="margin-top: 18px; font-size: 18px; line-height: 1.4; color: rgba(255,255,255,.62); max-width: 280px;">Where strangers become friends</div>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px; position: relative;">
+            <button onClick="{{ onGuest }}" style="width: 100%; padding: 19px; border-radius: 18px; background: #fff; color: #0c0d12; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px;">I'm here for class <span style="font-size: 19px;">→</span></button>
+            <button onClick="{{ onFac }}" style="width: 100%; padding: 19px; border-radius: 18px; background: rgba(255,255,255,.08); color: #fff; font-size: 16px; font-weight: 600; border: 1px solid rgba(255,255,255,.16);">I'm running the class</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ GUEST: JOIN (code) ============ -->
+      <sc-if value="{{ isJoinCode }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; background: radial-gradient(130% 90% at 50% -10%, #1c1f2b 0%, #0c0d12 70%); display: flex; flex-direction: column; padding: 80px 30px 34px; color: #fff;">
+          <button onClick="{{ onBack }}" style="color: rgba(255,255,255,.55); font-size: 15px; font-weight: 600; align-self: flex-start; margin-bottom: 30px;">← Back</button>
+          <div style="font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.4);">Step 1 of 2</div>
+          <div style="font-size: 34px; font-weight: 800; letter-spacing: -1px; margin-top: 10px; line-height: 1.05;">Enter your<br>class code</div>
+          <div style="margin-top: 34px;">
+            <input value="{{ code }}" onInput="{{ onCode }}" placeholder="WAVE-0000" maxlength="9" style="width: 100%; padding: 22px; border-radius: 16px; background: rgba(255,255,255,.07); border: 1.5px solid rgba(255,255,255,.16); color: #fff; font-family: 'DM Mono', monospace; font-size: 26px; letter-spacing: 4px; text-align: center; text-transform: uppercase; outline: none;">
+            <button onClick="{{ onScan }}" style="margin-top: 14px; width: 100%; padding: 15px; border-radius: 14px; background: rgba(255,255,255,.05); color: rgba(255,255,255,.7); font-size: 14px; font-weight: 600; border: 1px solid rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; gap: 8px;"><span style="width: 16px; height: 16px; border: 2px solid currentColor; border-radius: 4px; display: inline-block;"></span> Scan the QR at the door instead</button>
+          </div>
+          <div style="flex: 1;"></div>
+          <button onClick="{{ onSubmitCode }}" style="width: 100%; padding: 19px; border-radius: 18px; background: {{ codeBtnBg }}; color: {{ codeBtnFg }}; font-size: 17px; font-weight: 800;">Continue</button>
+        </div>
+      </sc-if>
+
+      <!-- ============ GUEST: JOIN (name) ============ -->
+      <sc-if value="{{ isJoinName }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; background: radial-gradient(130% 90% at 50% -10%, #1c1f2b 0%, #0c0d12 70%); display: flex; flex-direction: column; padding: 80px 30px 34px; color: #fff;">
+          <button onClick="{{ onBackName }}" style="color: rgba(255,255,255,.55); font-size: 15px; font-weight: 600; align-self: flex-start; margin-bottom: 30px;">← Back</button>
+          <div style="font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.4);">Step 2 of 2</div>
+          <div style="font-size: 34px; font-weight: 800; letter-spacing: -1px; margin-top: 10px; line-height: 1.05;">What should<br>classmates call you?</div>
+          <div style="margin-top: 34px;">
+            <input value="{{ nameInput }}" onInput="{{ onName }}" placeholder="Your name" maxlength="18" style="width: 100%; padding: 22px; border-radius: 16px; background: rgba(255,255,255,.07); border: 1.5px solid rgba(255,255,255,.16); color: #fff; font-size: 22px; text-align: center; outline: none;">
+            <div style="margin-top: 14px; font-size: 13.5px; color: rgba(255,255,255,.45); text-align: center; line-height: 1.5;">This is how you'll show up to the people you meet in class today.</div>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.5);">LinkedIn (optional)</span>
+              <span style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,.4);">Add it later anytime</span>
+            </div>
+            <input value="{{ linkedinUrl }}" onInput="{{ onLinkedinInput }}" placeholder="linkedin.com/in/you" style="margin-top: 10px; width: 100%; padding: 16px; border-radius: 14px; background: rgba(255,255,255,.07); border: 1.5px solid rgba(255,255,255,.16); color: #fff; font-size: 15px; outline: none;">
+            <div style="margin-top: 10px; font-size: 12.5px; color: rgba(255,255,255,.4); line-height: 1.4;">Only shared if you choose to connect with someone — never required.</div>
+          </div>
+          <div style="flex: 1;"></div>
+          <button onClick="{{ onSubmitName }}" style="width: 100%; padding: 19px; border-radius: 18px; background: {{ nameBtnBg }}; color: {{ nameBtnFg }}; font-size: 17px; font-weight: 800;">Find my wavelength</button>
+        </div>
+      </sc-if>
+
+      <!-- ============ GUEST: ASSIGNING ============ -->
+      <sc-if value="{{ isAssigning }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; background: radial-gradient(130% 90% at 50% -10%, #1c1f2b 0%, #0c0d12 70%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; color: #fff;">
+          <div style="display: flex; gap: 9px;">
+            <span style="width: 15px; height: 15px; border-radius: 50%; background: #06b6a4; animation: wl-livedot 1s ease-in-out infinite;"></span>
+            <span style="width: 15px; height: 15px; border-radius: 50%; background: #7a4dff; animation: wl-livedot 1s ease-in-out .15s infinite;"></span>
+            <span style="width: 15px; height: 15px; border-radius: 50%; background: #ff6b5e; animation: wl-livedot 1s ease-in-out .3s infinite;"></span>
+            <span style="width: 15px; height: 15px; border-radius: 50%; background: #2e6bff; animation: wl-livedot 1s ease-in-out .45s infinite;"></span>
+            <span style="width: 15px; height: 15px; border-radius: 50%; background: #f5a300; animation: wl-livedot 1s ease-in-out .6s infinite;"></span>
+          </div>
+          <div style="font-size: 19px; font-weight: 600; color: rgba(255,255,255,.7);">Finding your color…</div>
+        </div>
+      </sc-if>
+
+      <!-- ============ GUEST: REVEAL ============ -->
+      <sc-if value="{{ isReveal }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; background: radial-gradient(130% 100% at 50% 0%, var(--c) 0%, var(--cd) 72%); display: flex; flex-direction: column; align-items: center; padding: 86px 30px 30px; color: #fff; overflow: hidden;">
+
+          <sc-if value="{{ revWave }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; inset: 0; background: radial-gradient(130% 100% at 50% 0%, var(--c) 0%, var(--cd) 72%); animation: wl-wash .75s cubic-bezier(.4,0,.2,1) both;"></div>
+          </sc-if>
+
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; position: relative; z-index: 2;">
+            <div style="font-size: 15px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.7); animation: wl-pop .4s .15s both;">Your color group</div>
+            <div style="position: relative; display: flex; align-items: center; justify-content: center;">
+              <sc-if value="{{ revSnap }}" hint-placeholder-val="{{ false }}">
+                <div style="position: absolute; width: 196px; height: 196px; border-radius: 50%; border: 3px solid #fff; animation: wl-ring 1s ease-out .1s both;"></div>
+              </sc-if>
+              <div style="width: 196px; height: 196px; border-radius: 50%; background: radial-gradient(circle at 38% 32%, #fff 0%, var(--cs) 30%, var(--c) 100%); animation: {{ orbAnim }}; display: flex; align-items: center; justify-content: center;"></div>
+            </div>
+            <div style="text-align: center; animation: wl-pop .5s .25s both;">
+              <div style="font-size: 22px; font-weight: 500; color: rgba(255,255,255,.78);">You're</div>
+              <div style="font-size: 76px; font-weight: 900; letter-spacing: -2px; line-height: 1;">{{ cName }}</div>
+            </div>
+          </div>
+
+          <div style="width: 100%; position: relative; z-index: 2; animation: wl-pop .5s .35s both;">
+            <div style="display: flex; gap: 8px; justify-content: center; margin-bottom: 18px;">
+              <button onClick="{{ onBloom }}" style="padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: {{ pillBloomBg }}; color: {{ pillBloomFg }}; border: 1px solid rgba(255,255,255,.3);">Bloom</button>
+              <button onClick="{{ onWave }}" style="padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: {{ pillWaveBg }}; color: {{ pillWaveFg }}; border: 1px solid rgba(255,255,255,.3);">Wave</button>
+              <button onClick="{{ onSnap }}" style="padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; background: {{ pillSnapBg }}; color: {{ pillSnapFg }}; border: 1px solid rgba(255,255,255,.3);">Snap</button>
+            </div>
+            <div style="text-align: center; font-size: 12px; color: rgba(255,255,255,.55); margin-bottom: 16px;">Tap a style to replay the reveal</div>
+            <button onClick="{{ onConfirm }}" style="width: 100%; padding: 19px; border-radius: 18px; background: #fff; color: var(--cd); font-size: 17px; font-weight: 800;">This is me</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ GUEST APP ============ -->
+      <sc-if value="{{ isApp }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; background: radial-gradient(130% 100% at 50% 0%, var(--c) 0%, var(--cd) 78%); color: #fff; display: flex; flex-direction: column;">
+
+          <!-- NOW / HOME -->
+          <sc-if value="{{ tabNow }}" hint-placeholder-val="{{ true }}">
+            <div style="flex: 1; overflow-y: auto; padding: 64px 24px 110px; display: flex; flex-direction: column; gap: 18px;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                  <div style="font-size: 14px; color: rgba(255,255,255,.65); font-weight: 600;">Hi {{ guestName }} —</div>
+                  <div style="font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 7px;">You're <span style="color: #fff;">{{ cName }}</span></div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <button onClick="{{ onOpenPrivacy }}" style="width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.14); color: #fff; font-size: 13px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">i</button>
+                  <div style="width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 38% 32%, #fff, var(--cs) 35%, var(--c)); box-shadow: 0 0 0 3px rgba(255,255,255,.25);"></div>
+                </div>
+              </div>
+
+              <div style="background: rgba(255,255,255,.13); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.2); border-radius: 26px; padding: 24px; display: flex; flex-direction: column; gap: 4px;">
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.7);"><span style="width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: wl-livedot 1.4s infinite;"></span> Happening now · {{ segDur }}</div>
+                <div style="font-size: 38px; font-weight: 900; letter-spacing: -1.5px; line-height: 1.04; margin-top: 10px;">{{ segName }}</div>
+                <div style="font-size: 17px; color: rgba(255,255,255,.82); margin-top: 8px; line-height: 1.35;">{{ segDo }}</div>
+                <sc-if value="{{ segIsGame }}" hint-placeholder-val="{{ true }}">
+                  <button onClick="{{ onOpenActiveGuide }}" style="margin-top: 18px; align-self: flex-start; background: #fff; color: var(--cd); border-radius: 30px; padding: 11px 20px; font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 8px;"><span style="width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900;">?</span> How to play</button>
+                </sc-if>
+              </div>
+
+              <sc-if value="{{ hasPrompt }}" hint-placeholder-val="{{ false }}">
+                <div style="background: #fff; color: var(--cd); border-radius: 22px; padding: 20px 22px;">
+                  <div style="font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .55;">From your facilitator</div>
+                  <div style="font-size: 21px; font-weight: 800; line-height: 1.2; margin-top: 8px;">{{ pushedText }}</div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ showGroupGlance }}" hint-placeholder-val="{{ false }}">
+                <div style="background: #fff; color: var(--cd); border-radius: 24px; padding: 22px;">
+                  <div style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: .5;">Your group at a glance</div>
+                  <div style="font-size: 22px; font-weight: 900; letter-spacing: -.5px; margin-top: 6px;">{{ cName }} today</div>
+                  <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px;">
+                    <sc-for list="{{ glanceThemes }}" as="th" hint-placeholder-count="2">
+                      <span style="background: var(--cs); color: var(--cd); font-size: 12.5px; font-weight: 700; padding: 6px 12px; border-radius: 20px;">{{ th.text }}</span>
+                    </sc-for>
+                  </div>
+                  <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,.08);">
+                    <div style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; opacity: .45;">You all had in common</div>
+                    <div style="font-size: 15.5px; font-weight: 600; line-height: 1.4; margin-top: 6px; text-wrap: pretty;">{{ glanceCommon }}</div>
+                  </div>
+                  <div style="margin-top: 14px;">
+                    <div style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; opacity: .45;">A great find</div>
+                    <div style="font-size: 15.5px; font-weight: 600; line-height: 1.4; margin-top: 6px; text-wrap: pretty;">{{ glanceUnique }}</div>
+                  </div>
+                  <button onClick="{{ onOpenPrivacy }}" style="margin-top: 16px; font-size: 12.5px; font-weight: 700; color: var(--c);">How this summary is built →</button>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ showIntroCard }}" hint-placeholder-val="{{ false }}">
+                <div style="background: rgba(255,255,255,.13); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.2); border-radius: 24px; padding: 22px;">
+                  <div style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.65);">A few questions from your teacher</div>
+                  <div style="font-size: 13.5px; color: rgba(255,255,255,.65); margin-top: 6px; line-height: 1.4;">Totally optional — helps them get to know the class.</div>
+                  <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 16px;">
+                    <sc-for list="{{ introQuestions }}" as="q" hint-placeholder-count="3">
+                      <div>
+                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px;">
+                          <span style="font-size: 14.5px; font-weight: 700; line-height: 1.3;">{{ q.text }}</span>
+                          <span style="flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 800; letter-spacing: .3px; text-transform: uppercase; color: #9db8ff; background: rgba(111,155,255,.18); padding: 4px 9px; border-radius: 20px; white-space: nowrap;"><span style="width: 6px; height: 6px; border-radius: 50%; background: currentColor;"></span>Teacher only</span>
+                        </div>
+                        <input value="{{ q.answer }}" onInput="{{ q.onInput }}" placeholder="Type your answer…" style="width: 100%; padding: 13px 15px; border-radius: 12px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); color: #fff; font-size: 14.5px; outline: none;">
+                      </div>
+                    </sc-for>
+                  </div>
+                  <button onClick="{{ onSubmitIntro }}" style="margin-top: 16px; width: 100%; padding: 14px; border-radius: 14px; background: #fff; color: var(--cd); font-size: 14.5px; font-weight: 800;">Share with my teacher</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ showIntroDone }}" hint-placeholder-val="{{ false }}">
+                <div style="background: rgba(84,214,141,.14); border: 1px solid rgba(84,214,141,.35); border-radius: 20px; padding: 16px 18px; font-weight: 700; font-size: 14.5px;">✓ Thanks — your teacher can see your answers.</div>
+              </sc-if>
+
+              <sc-if value="{{ showTruthsCard }}" hint-placeholder-val="{{ false }}">
+                <div style="background: rgba(255,255,255,.13); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.2); border-radius: 24px; padding: 22px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <span style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.65);">Your two truths</span>
+                    <span style="display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 800; letter-spacing: .3px; text-transform: uppercase; color: rgba(255,255,255,.8); background: rgba(255,255,255,.14); padding: 4px 9px; border-radius: 20px; white-space: nowrap;"><span style="width: 6px; height: 6px; border-radius: 50%; background: currentColor;"></span>Private until you trade</span>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+                    <input value="{{ truthA }}" onInput="{{ onTruthA }}" placeholder="Truth #1" style="width: 100%; padding: 13px 15px; border-radius: 12px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); color: #fff; font-size: 14.5px; outline: none;">
+                    <input value="{{ truthB }}" onInput="{{ onTruthB }}" placeholder="Truth #2" style="width: 100%; padding: 13px 15px; border-radius: 12px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); color: #fff; font-size: 14.5px; outline: none;">
+                  </div>
+                  <button onClick="{{ onSubmitTruths }}" style="margin-top: 14px; width: 100%; padding: 14px; border-radius: 14px; background: #fff; color: var(--cd); font-size: 14.5px; font-weight: 800;">Ready to trade</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ showTruthsDone }}" hint-placeholder-val="{{ false }}">
+                <div style="background: rgba(84,214,141,.14); border: 1px solid rgba(84,214,141,.35); border-radius: 20px; padding: 16px 18px; font-weight: 700; font-size: 14.5px;">✓ Locked in — go find a partner with a different color.</div>
+              </sc-if>
+
+              <div style="display: flex; align-items: center; gap: 12px; padding: 4px 4px 0; color: rgba(255,255,255,.62); font-size: 13.5px;">
+                <span style="font-weight: 700;">Up next</span>
+                <span style="flex: 1; height: 1px; background: rgba(255,255,255,.2);"></span>
+                <span>{{ nextSegName }}</span>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- MY COLOR -->
+          <sc-if value="{{ tabGroup }}" hint-placeholder-val="{{ false }}">
+            <div onTouchStart="{{ onGroupTouchStart }}" onTouchEnd="{{ onGroupTouchEnd }}" style="flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; padding: 78px 30px 130px; overflow: hidden;">
+              <div style="font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.6);">Your color</div>
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 34px;">
+                <div style="width: 244px; height: 244px; border-radius: 50%; background: radial-gradient(circle at 38% 32%, #fff 0%, var(--cs) 30%, var(--c) 100%); animation: wl-glow 3s ease-in-out infinite;"></div>
+                <div style="text-align: center;">
+                  <div style="font-size: 20px; font-weight: 500; color: rgba(255,255,255,.75);">You're</div>
+                  <div style="font-size: 66px; font-weight: 900; letter-spacing: -2px; line-height: 1;">{{ cName }}</div>
+                  <div style="font-size: 15px; color: rgba(255,255,255,.72); margin-top: 16px; max-width: 250px; line-height: 1.45; text-wrap: pretty;">Hold your phone up and find the others showing the same color.</div>
+                </div>
+              </div>
+
+              <sc-if value="{{ groupHandle }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ onToggleGroupSheet }}" style="position: absolute; bottom: 108px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 5px; color: rgba(255,255,255,.7); animation: wl-float 1.4s ease-in-out;">
+                  <span style="font-size: 22px; line-height: .6;">⌃</span>
+                  <span style="font-size: 13px; font-weight: 700; letter-spacing: .3px;">Swipe up for a prompt</span>
+                </button>
+              </sc-if>
+
+              <sc-if value="{{ groupSheet }}" hint-placeholder-val="{{ false }}">
+                <div style="position: absolute; bottom: 100px; left: 16px; right: 16px; z-index: 6; animation: wl-sheet .34s cubic-bezier(.4,0,.2,1) both;">
+                  <div style="background: #fff; color: var(--cd); border-radius: 24px; padding: 20px 22px; box-shadow: 0 -12px 44px rgba(0,0,0,.4);">
+                    <div style="width: 38px; height: 4px; border-radius: 3px; background: rgba(0,0,0,.12); margin: 0 auto 14px;"></div>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                      <span style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; opacity: .5;">Talk about this</span>
+                      <button onClick="{{ onCloseGroupSheet }}" style="font-size: 18px; color: rgba(0,0,0,.3); line-height: 1;">×</button>
+                    </div>
+                    <div style="font-size: 21px; font-weight: 800; line-height: 1.25; margin-top: 8px; text-wrap: pretty;">{{ groupPrompt }}</div>
+                    <button onClick="{{ onGroupNextPrompt }}" style="margin-top: 16px; font-size: 13px; font-weight: 800; color: var(--c);">New prompt →</button>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <!-- CONNECT -->
+          <sc-if value="{{ tabConnect }}" hint-placeholder-val="{{ false }}">
+            <div style="flex: 1; overflow-y: auto; padding: 64px 24px 110px; display: flex; flex-direction: column; gap: 18px;">
+              <div style="font-size: 28px; font-weight: 900; letter-spacing: -1px;">Connect</div>
+              <button onClick="{{ onShare }}" style="width: 100%; background: #fff; color: var(--cd); border-radius: 24px; padding: 26px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <span style="width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 38% 32%, var(--cs), var(--c)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 30px; font-weight: 700;">+</span>
+                <span style="font-size: 20px; font-weight: 800;">Share my card</span>
+                <span style="font-size: 13.5px; opacity: .6; font-weight: 600;">Hold phones together to swap contacts</span>
+              </button>
+              <sc-if value="{{ showJustAdded }}" hint-placeholder-val="{{ false }}">
+                <div style="background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35); border-radius: 14px; padding: 13px 16px; font-weight: 700; animation: wl-float .4s both;">✓ Added {{ justAddedName }} to your connections</div>
+              </sc-if>
+
+              <div style="background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); border-radius: 20px; padding: 18px;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                  <span style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.65);">LinkedIn (optional)</span>
+                  <span style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,.5);">Only shown if you add it</span>
+                </div>
+                <sc-if value="{{ linkedinSaved }}" hint-placeholder-val="{{ false }}">
+                  <div style="display: flex; align-items: center; gap: 10px; margin-top: 12px;">
+                    <span style="flex: 1; font-size: 14.5px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ linkedinUrl }}</span>
+                    <button onClick="{{ onEditLinkedin }}" style="font-size: 12.5px; font-weight: 700; color: #fff; opacity: .7;">Edit</button>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ linkedinEditing }}" hint-placeholder-val="{{ true }}">
+                  <div style="display: flex; gap: 8px; margin-top: 12px;">
+                    <input value="{{ linkedinUrl }}" onInput="{{ onLinkedinInput }}" placeholder="linkedin.com/in/you" style="flex: 1; min-width: 0; padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); color: #fff; font-size: 14px; outline: none;">
+                    <button onClick="{{ onSaveLinkedin }}" style="padding: 0 18px; border-radius: 12px; background: #fff; color: var(--cd); font-size: 13.5px; font-weight: 800; flex-shrink: 0;">Save</button>
+                  </div>
+                </sc-if>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+                <span style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.6);">My connections</span>
+                <span style="font-size: 13px; font-weight: 800; background: rgba(255,255,255,.18); padding: 3px 11px; border-radius: 20px;">{{ connCount }}</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <sc-for list="{{ connections }}" as="p" hint-placeholder-count="3">
+                  <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,.1); border-radius: 14px; padding: 12px 14px;">
+                    <span style="width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; color: #fff; background: {{ p.chip }};">{{ p.initial }}</span>
+                    <span style="flex: 1;"><span style="display: block; font-weight: 700; font-size: 16px;">{{ p.name }}</span><span style="display: block; font-size: 12.5px; color: rgba(255,255,255,.6);">{{ p.tag }}</span></span>
+                    <sc-if value="{{ p.hasLinkedin }}" hint-placeholder-val="{{ false }}">
+                      <button style="font-size: 12px; font-weight: 800; color: #fff; background: rgba(255,255,255,.16); padding: 8px 12px; border-radius: 20px; white-space: nowrap; flex-shrink: 0;">Connect</button>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- GUEST TAB BAR -->
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 92px; background: rgba(12,13,18,.32); backdrop-filter: blur(16px); border-top: 1px solid rgba(255,255,255,.14); display: flex; padding: 12px 8px 26px;">
+            <button onClick="{{ onTabNow }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: {{ navNow }};"><span style="width: 22px; height: 22px; border-radius: 50%; border: 2.4px solid currentColor; display: flex; align-items: center; justify-content: center;"><span style="width: 6px; height: 6px; border-radius: 50%; background: currentColor;"></span></span><span style="font-size: 11px; font-weight: 700;">Now</span></button>
+            <button onClick="{{ onTabGroup }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: {{ navGroup }};"><span style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; gap: 2px;"><span style="width: 7px; height: 7px; border-radius: 50%; background: currentColor;"></span><span style="width: 7px; height: 7px; border-radius: 50%; background: currentColor;"></span></span><span style="font-size: 11px; font-weight: 700;">Group</span></button>
+            <button onClick="{{ onTabConnect }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; color: {{ navConnect }};"><span style="width: 22px; height: 22px; border-radius: 8px; border: 2.4px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800;">+</span><span style="font-size: 11px; font-weight: 700;">Connect</span></button>
+          </div>
+
+          <!-- GUEST COACH POPUP -->
+          <sc-if value="{{ showCoachNow }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; bottom: 104px; left: 18px; right: 18px; z-index: 55; animation: wl-float .4s both;">
+              <div style="background: #fff; color: #101116; border-radius: 18px; padding: 14px 16px; display: flex; gap: 12px; align-items: center; box-shadow: 0 18px 40px rgba(0,0,0,.45);">
+                <span style="width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; background: radial-gradient(circle at 38% 32%, var(--cs), var(--c)); box-shadow: 0 0 0 4px rgba(0,0,0,.05);"></span>
+                <div style="flex: 1;">
+                  <div style="font-size: 10.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(16,17,22,.45);">Do this now · {{ coachGameName }}</div>
+                  <div style="font-size: 15px; font-weight: 700; line-height: 1.3; margin-top: 2px;">{{ coachText }}</div>
+                </div>
+                <button onClick="{{ onDismissCoach }}" style="align-self: flex-start; color: rgba(16,17,22,.4); font-size: 20px; font-weight: 700; line-height: 1; padding: 2px;">×</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- GUEST GAME GUIDE OVERLAY -->
+          <sc-if value="{{ showGuide }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; inset: 0; z-index: 70; display: flex; flex-direction: column; justify-content: flex-end;">
+              <button onClick="{{ onCloseGuide }}" style="position: absolute; inset: 0; background: rgba(0,0,0,.55);"></button>
+              <div style="position: relative; background: #15161d; color: #fff; border-radius: 30px 30px 0 0; max-height: 88%; overflow-y: auto; padding: 16px 24px 30px; animation: wl-sheet .38s cubic-bezier(.4,0,.2,1) both;">
+                <div style="width: 42px; height: 5px; border-radius: 3px; background: rgba(255,255,255,.25); margin: 0 auto 18px;"></div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span style="width: 30px; height: 30px; border-radius: 50%; background: {{ guideColor }}; box-shadow: 0 0 18px 0 {{ guideColor }};"></span>
+                  <div style="flex: 1;">
+                    <div style="font-size: 24px; font-weight: 900; letter-spacing: -.5px; line-height: 1;">{{ guideName }}</div>
+                    <div style="font-size: 13.5px; color: rgba(255,255,255,.55); margin-top: 3px;">{{ guideTagline }}</div>
+                  </div>
+                  <button onClick="{{ onCloseGuide }}" style="width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,.08); color: #fff; font-size: 18px;">×</button>
+                </div>
+
+                <div style="display: flex; gap: 8px; margin-top: 18px;">
+                  <div style="flex: 1; background: #1f2027; border-radius: 12px; padding: 11px 8px; text-align: center;"><div style="font-size: 13px; font-weight: 800;">{{ guideSize }}</div><div style="font-size: 10px; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px;">Group</div></div>
+                  <div style="flex: 1; background: #1f2027; border-radius: 12px; padding: 11px 8px; text-align: center;"><div style="font-size: 13px; font-weight: 800;">{{ guideTime }}</div><div style="font-size: 10px; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px;">Time</div></div>
+                  <div style="flex: 1; background: #1f2027; border-radius: 12px; padding: 11px 8px; text-align: center;"><div style="font-size: 13px; font-weight: 800;">{{ guideSetting }}</div><div style="font-size: 10px; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px;">Setting</div></div>
+                </div>
+
+                <div style="background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 16px; margin-top: 16px;">
+                  <div style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4);">Why this game</div>
+                  <div style="font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.85); margin-top: 6px;">{{ guideWhy }}</div>
+                </div>
+
+                <div style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4); margin: 20px 2px 12px;">How to play</div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <sc-for list="{{ guideSteps }}" as="st" hint-placeholder-count="5">
+                    <div style="display: flex; gap: 13px; align-items: flex-start;">
+                      <span style="width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; background: {{ guideColor }}; color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center;">{{ st.n }}</span>
+                      <span style="font-size: 15px; line-height: 1.4; color: rgba(255,255,255,.9); padding-top: 2px;">{{ st.text }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <sc-if value="{{ guideHasPrompts }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top: 22px;">
+                    <div style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4); margin: 0 2px 12px;">Sample prompts</div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                      <sc-for list="{{ guidePrompts }}" as="pr" hint-placeholder-count="3">
+                        <div style="background: #1f2027; border-radius: 12px; padding: 12px 15px; font-size: 14px; line-height: 1.4; color: rgba(255,255,255,.85);">{{ pr.text }}</div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ guideHasLeads }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top: 20px; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,.05); border-radius: 12px; padding: 13px 16px;">
+                    <span style="font-size: 13px; color: rgba(255,255,255,.5); font-weight: 600;">Leads into</span>
+                    <span style="font-size: 15px; font-weight: 800;">{{ guideLeads }}</span>
+                    <span style="margin-left: auto; font-size: 16px; color: rgba(255,255,255,.4);">→</span>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- PRIVACY SHEET -->
+          <sc-if value="{{ showPrivacy }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; inset: 0; z-index: 80; display: flex; flex-direction: column; justify-content: flex-end;">
+              <button onClick="{{ onClosePrivacy }}" style="position: absolute; inset: 0; background: rgba(0,0,0,.55);"></button>
+              <div style="position: relative; background: #15161d; color: #fff; border-radius: 30px 30px 0 0; max-height: 82%; overflow-y: auto; padding: 16px 24px 30px; animation: wl-sheet .38s cubic-bezier(.4,0,.2,1) both;">
+                <div style="width: 42px; height: 5px; border-radius: 3px; background: rgba(255,255,255,.25); margin: 0 auto 18px;"></div>
+                <div style="font-size: 22px; font-weight: 900; letter-spacing: -.5px;">About your privacy</div>
+                <div style="font-size: 14px; color: rgba(255,255,255,.6); margin-top: 8px; line-height: 1.5; text-wrap: pretty;">Wavelength calls this intellectual privacy — you always know where an answer is going before you send it.</div>
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+                  <div style="background: #1f2027; border-radius: 14px; padding: 14px 16px;">
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: rgba(255,255,255,.85);"><span style="width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.6);"></span>Private to you</div>
+                    <div style="font-size: 14px; color: rgba(255,255,255,.6); margin-top: 6px; line-height: 1.4;">Drafts, and anything you haven't submitted yet — no one else sees these.</div>
+                  </div>
+                  <div style="background: #1f2027; border-radius: 14px; padding: 14px 16px;">
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: #9db8ff;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #9db8ff;"></span>Visible to your teacher</div>
+                    <div style="font-size: 14px; color: rgba(255,255,255,.6); margin-top: 6px; line-height: 1.4;">Answers to get-to-know-you questions, so they can understand the class.</div>
+                  </div>
+                  <div style="background: #1f2027; border-radius: 14px; padding: 14px 16px;">
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: #fff;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #fff;"></span>Shared with your group</div>
+                    <div style="font-size: 14px; color: rgba(255,255,255,.6); margin-top: 6px; line-height: 1.4;">What you say out loud or write together during an activity.</div>
+                  </div>
+                  <div style="background: #1f2027; border-radius: 14px; padding: 14px 16px;">
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: #6fe3ab;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #6fe3ab;"></span>Used for group insights</div>
+                    <div style="font-size: 14px; color: rgba(255,255,255,.6); margin-top: 6px; line-height: 1.4;">Combined and anonymized into themes shown to the class or teacher — never with your name attached.</div>
+                  </div>
+                </div>
+                <div style="font-size: 13px; color: rgba(255,255,255,.4); margin-top: 18px; text-align: center;">You'll see one of these next to every question before you answer.</div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ============ FACILITATOR: SETUP ============ -->
+      <sc-if value="{{ facSetup }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; background: #101116; color: #fff; display: flex; flex-direction: column; padding: 78px 26px 30px;">
+          <button onClick="{{ onBack }}" style="color: rgba(255,255,255,.5); font-size: 15px; font-weight: 600; align-self: flex-start; margin-bottom: 22px;">← Back</button>
+          <div style="font-size: 12.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.4);">Step 1 · Class size</div>
+          <div style="font-size: 30px; font-weight: 900; letter-spacing: -1px; margin-top: 8px; line-height: 1.05;">How many students<br>are you expecting?</div>
+
+          <div style="margin-top: 26px; background: #1a1c24; border: 1px solid rgba(255,255,255,.08); border-radius: 24px; padding: 26px; display: flex; flex-direction: column; align-items: center; gap: 18px;">
+            <div style="display: flex; align-items: center; gap: 24px;">
+              <button onClick="{{ onHeadDown }}" style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.08); color: #fff; font-size: 26px; font-weight: 700;">−</button>
+              <div style="font-family: 'DM Mono', monospace; font-size: 64px; font-weight: 500; min-width: 120px; text-align: center;">{{ headcount }}</div>
+              <button onClick="{{ onHeadUp }}" style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.08); color: #fff; font-size: 26px; font-weight: 700;">+</button>
+            </div>
+            <input type="range" min="10" max="100" step="1" value="{{ headcount }}" onInput="{{ onHeadRange }}" style="width: 100%; accent-color: #2e6bff;">
+            <div style="font-size: 13px; color: rgba(255,255,255,.45);">expected students</div>
+          </div>
+
+          <div style="margin-top: 16px; background: #1a1c24; border: 1px solid rgba(255,255,255,.08); border-radius: 24px; padding: 22px;">
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.45);">Suggested setup</div>
+            <div style="display: flex; gap: 14px; margin-top: 14px;">
+              <div style="flex: 1;"><div style="font-size: 34px; font-weight: 900; line-height: 1;">{{ sugGroups }}</div><div style="font-size: 13px; color: rgba(255,255,255,.55); margin-top: 4px;">color groups</div></div>
+              <div style="flex: 1;"><div style="font-size: 34px; font-weight: 900; line-height: 1;">~{{ sugSize }}</div><div style="font-size: 13px; color: rgba(255,255,255,.55); margin-top: 4px;">per group</div></div>
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 18px;">
+              <sc-for list="{{ facColors }}" as="g" hint-placeholder-count="5">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;"><span style="width: 100%; height: 38px; border-radius: 12px; background: {{ g.hex }};"></span><span style="font-size: 11px; color: rgba(255,255,255,.6); font-weight: 600;">{{ g.name }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex: 1;"></div>
+          <button onClick="{{ onToAgenda }}" style="width: 100%; padding: 19px; border-radius: 18px; background: #2e6bff; color: #fff; font-size: 17px; font-weight: 800; margin-top: 18px; display: flex; align-items: center; justify-content: center; gap: 10px;">Next · Build agenda <span style="font-size: 18px;">→</span></button>
+        </div>
+      </sc-if>
+
+      <!-- ============ FACILITATOR: AGENDA BUILDER ============ -->
+      <sc-if value="{{ facAgenda }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; background: #101116; color: #fff; display: flex; flex-direction: column;">
+          <div style="flex: 1; overflow-y: auto; padding: 72px 24px 120px; display: flex; flex-direction: column; gap: 16px;">
+            <button onClick="{{ onAgendaBack }}" style="color: rgba(255,255,255,.5); font-size: 15px; font-weight: 600; align-self: flex-start;">← Back</button>
+            <div>
+              <div style="font-size: 12.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.4);">Step 2 · Agenda</div>
+              <div style="font-size: 28px; font-weight: 900; letter-spacing: -.5px; margin-top: 6px; line-height: 1.05;">Build today's run of play</div>
+              <div style="font-size: 14px; color: rgba(255,255,255,.55); margin-top: 8px; line-height: 1.4;">Pick your games and set the order. Tap any game to preview exactly how it plays.</div>
+            </div>
+
+            <!-- AGENDA SUMMARY -->
+            <div style="background: #1a1c24; border: 1px solid rgba(255,255,255,.08); border-radius: 20px; padding: 16px;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.45);">Your agenda</span>
+                <span style="font-size: 12px; font-weight: 800; color: #6f9bff;">{{ gameCount }} games · ~{{ totalMins }} min</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 14px;">
+                <div style="display: flex; align-items: center; gap: 12px; padding: 8px 4px; opacity: .5;">
+                  <span style="width: 24px; height: 24px; border-radius: 50%; border: 1.5px dashed rgba(255,255,255,.4); flex-shrink: 0;"></span>
+                  <span style="flex: 1; font-size: 14px; font-weight: 700;">Welcome &amp; app join</span>
+                  <span style="font-size: 11px; color: rgba(255,255,255,.5);">fixed</span>
+                </div>
+                <sc-for list="{{ agendaItems }}" as="it" hint-placeholder-count="3">
+                  <div style="display: flex; align-items: center; gap: 12px; background: rgba(46,107,255,.1); border: 1px solid rgba(111,155,255,.28); border-radius: 12px; padding: 8px 10px 8px 8px;">
+                    <span style="width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; background: {{ it.dot }}; color: #fff; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center;">{{ it.num }}</span>
+                    <span style="flex: 1; font-size: 14.5px; font-weight: 700;">{{ it.name }}</span>
+                    <button onClick="{{ it.up }}" style="width: 26px; height: 26px; border-radius: 8px; background: rgba(255,255,255,.07); color: #fff; font-size: 13px;">↑</button>
+                    <button onClick="{{ it.down }}" style="width: 26px; height: 26px; border-radius: 8px; background: rgba(255,255,255,.07); color: #fff; font-size: 13px;">↓</button>
+                    <button onClick="{{ it.remove }}" style="width: 26px; height: 26px; border-radius: 8px; background: rgba(255,255,255,.07); color: rgba(255,255,255,.6); font-size: 16px;">×</button>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ agendaEmpty }}" hint-placeholder-val="{{ false }}">
+                  <div style="border: 1.5px dashed rgba(255,255,255,.15); border-radius: 12px; padding: 16px; text-align: center; font-size: 13px; color: rgba(255,255,255,.4);">Add at least one game from the library below.</div>
+                </sc-if>
+                <div style="display: flex; align-items: center; gap: 12px; padding: 8px 4px; opacity: .5;">
+                  <span style="width: 24px; height: 24px; border-radius: 50%; border: 1.5px dashed rgba(255,255,255,.4); flex-shrink: 0;"></span>
+                  <span style="flex: 1; font-size: 14px; font-weight: 700;">Wrap-up &amp; connect</span>
+                  <span style="font-size: 11px; color: rgba(255,255,255,.5);">fixed</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- GAME LIBRARY -->
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-top: 4px;">Game library</div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <sc-for list="{{ library }}" as="g" hint-placeholder-count="6">
+                <div style="background: #1a1c24; border: 1px solid {{ g.border }}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px;">
+                  <button onClick="{{ g.preview }}" style="text-align: left; display: flex; align-items: flex-start; gap: 12px; width: 100%;">
+                    <span style="width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; background: {{ g.dot }};"></span>
+                    <span style="flex: 1;">
+                      <span style="display: block; font-size: 17px; font-weight: 800; color: #fff;">{{ g.name }}</span>
+                      <span style="display: block; font-size: 13px; color: rgba(255,255,255,.55); margin-top: 1px;">{{ g.tagline }}</span>
+                      <span style="display: block; font-size: 12px; color: rgba(255,255,255,.4); margin-top: 6px;">{{ g.meta }}</span>
+                    </span>
+                    <span style="font-size: 12px; font-weight: 700; color: #6f9bff; display: flex; align-items: center; gap: 4px; white-space: nowrap;">How to play →</span>
+                  </button>
+                  <button onClick="{{ g.toggle }}" style="width: 100%; padding: 11px; border-radius: 12px; font-size: 14px; font-weight: 800; background: {{ g.toggleBg }}; color: {{ g.toggleFg }}; border: 1px solid {{ g.toggleBorder }};">{{ g.toggleLabel }}</button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 24px 24px; background: linear-gradient(transparent, #101116 36%);">
+            <button onClick="{{ onLaunch }}" style="width: 100%; padding: 18px; border-radius: 18px; background: {{ launchBg }}; color: {{ launchFg }}; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px;">Launch class <span style="font-size: 18px;">→</span></button>
+          </div>
+
+          <!-- GUIDE OVERLAY (shared, facilitator preview) -->
+          <sc-if value="{{ showGuide }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; inset: 0; z-index: 70; display: flex; flex-direction: column; justify-content: flex-end;">
+              <button onClick="{{ onCloseGuide }}" style="position: absolute; inset: 0; background: rgba(0,0,0,.55);"></button>
+              <div style="position: relative; background: #15161d; color: #fff; border-radius: 30px 30px 0 0; max-height: 88%; overflow-y: auto; padding: 16px 24px 30px; animation: wl-sheet .38s cubic-bezier(.4,0,.2,1) both;">
+                <div style="width: 42px; height: 5px; border-radius: 3px; background: rgba(255,255,255,.25); margin: 0 auto 18px;"></div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span style="width: 30px; height: 30px; border-radius: 50%; background: {{ guideColor }}; box-shadow: 0 0 18px 0 {{ guideColor }};"></span>
+                  <div style="flex: 1;">
+                    <div style="font-size: 24px; font-weight: 900; letter-spacing: -.5px; line-height: 1;">{{ guideName }}</div>
+                    <div style="font-size: 13.5px; color: rgba(255,255,255,.55); margin-top: 3px;">{{ guideTagline }}</div>
+                  </div>
+                  <button onClick="{{ onCloseGuide }}" style="width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,.08); color: #fff; font-size: 18px;">×</button>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 18px;">
+                  <div style="flex: 1; background: #1f2027; border-radius: 12px; padding: 11px 8px; text-align: center;"><div style="font-size: 13px; font-weight: 800;">{{ guideSize }}</div><div style="font-size: 10px; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px;">Group</div></div>
+                  <div style="flex: 1; background: #1f2027; border-radius: 12px; padding: 11px 8px; text-align: center;"><div style="font-size: 13px; font-weight: 800;">{{ guideTime }}</div><div style="font-size: 10px; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px;">Time</div></div>
+                  <div style="flex: 1; background: #1f2027; border-radius: 12px; padding: 11px 8px; text-align: center;"><div style="font-size: 13px; font-weight: 800;">{{ guideSetting }}</div><div style="font-size: 10px; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px;">Setting</div></div>
+                </div>
+                <div style="background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 16px; margin-top: 16px;">
+                  <div style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4);">Why this game</div>
+                  <div style="font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.85); margin-top: 6px;">{{ guideWhy }}</div>
+                </div>
+                <div style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4); margin: 20px 2px 12px;">How to play</div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <sc-for list="{{ guideSteps }}" as="st" hint-placeholder-count="5">
+                    <div style="display: flex; gap: 13px; align-items: flex-start;">
+                      <span style="width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; background: {{ guideColor }}; color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center;">{{ st.n }}</span>
+                      <span style="font-size: 15px; line-height: 1.4; color: rgba(255,255,255,.9); padding-top: 2px;">{{ st.text }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ guideHasPrompts }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top: 22px;">
+                    <div style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4); margin: 0 2px 12px;">Sample prompts</div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                      <sc-for list="{{ guidePrompts }}" as="pr" hint-placeholder-count="3">
+                        <div style="background: #1f2027; border-radius: 12px; padding: 12px 15px; font-size: 14px; line-height: 1.4; color: rgba(255,255,255,.85);">{{ pr.text }}</div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ guideHasLeads }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top: 20px; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,.05); border-radius: 12px; padding: 13px 16px;">
+                    <span style="font-size: 13px; color: rgba(255,255,255,.5); font-weight: 600;">Leads into</span>
+                    <span style="font-size: 15px; font-weight: 800;">{{ guideLeads }}</span>
+                    <span style="margin-left: auto; font-size: 16px; color: rgba(255,255,255,.4);">→</span>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ============ FACILITATOR: DASHBOARD ============ -->
+      <sc-if value="{{ facDash }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; background: #101116; color: #fff; display: flex; flex-direction: column;">
+          <div style="flex: 1; overflow-y: auto; padding: 64px 24px 132px; display: flex; flex-direction: column; gap: 18px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div><div style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.4);">Live class</div><div style="font-size: 24px; font-weight: 900; letter-spacing: -.5px;">Run the room</div></div>
+              <div style="display: flex; align-items: center; gap: 6px; background: rgba(47,191,113,.16); color: #54d68d; padding: 6px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 800;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #54d68d; animation: wl-livedot 1.4s infinite;"></span> LIVE</div>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+              <div style="flex: 1; background: #1a1c24; border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 16px;"><div style="font-size: 26px; font-weight: 900;">{{ statGuests }}</div><div style="font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px;">joined</div></div>
+              <div style="flex: 1; background: #1a1c24; border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 16px;"><div style="font-size: 26px; font-weight: 900;">{{ statGroups }}</div><div style="font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px;">groups</div></div>
+              <div style="flex: 1; background: #1a1c24; border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 16px;"><div style="font-size: 26px; font-weight: 900;">{{ progressPct }}</div><div style="font-size: 12px; color: rgba(255,255,255,.5); margin-top: 2px;">complete</div></div>
+            </div>
+
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-top: 4px;">Today's agenda</div>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <sc-for list="{{ timeline }}" as="t" hint-placeholder-count="5">
+                <div style="display: flex; gap: 14px; align-items: stretch;">
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="width: 16px; height: 16px; border-radius: 50%; margin-top: 16px; background: {{ t.dot }}; box-shadow: {{ t.dotGlow }};"></div>
+                    <div style="flex: 1; width: 2px; background: rgba(255,255,255,.12);"></div>
+                  </div>
+                  <button onClick="{{ t.preview }}" style="text-align: left; flex: 1; background: {{ t.cardBg }}; border: 1px solid {{ t.cardBorder }}; border-radius: 16px; padding: 14px 16px; margin-bottom: 4px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                      <span style="font-family: 'DM Mono', monospace; font-size: 12px; color: rgba(255,255,255,.45);">{{ t.num }}</span>
+                      <span style="font-size: 12px; font-weight: 700; color: {{ t.tagColor }};">{{ t.tag }}</span>
+                    </div>
+                    <div style="font-size: 18px; font-weight: 800; margin-top: 2px; color: {{ t.nameColor }};">{{ t.name }}</div>
+                    <div style="font-size: 13px; color: rgba(255,255,255,.5);">{{ t.sub }} · {{ t.dur }}</div>
+                  </button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="position: absolute; bottom: 78px; left: 0; right: 0; padding: 14px 24px; background: linear-gradient(transparent, #101116 40%);">
+            <button onClick="{{ onAdvance }}" style="width: 100%; padding: 18px; border-radius: 18px; background: #2e6bff; color: #fff; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 10px;">{{ advanceLabel }} <span style="font-size: 18px;">→</span></button>
+          </div>
+
+          <!-- FAC NAV -->
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 78px; background: #14151b; border-top: 1px solid rgba(255,255,255,.1); display: flex; padding: 10px 8px 22px;">
+            <button onClick="{{ onNavDash }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavDash }};"><span style="width: 18px; height: 14px; border: 2px solid currentColor; border-radius: 3px;"></span>Run</button>
+            <button onClick="{{ onNavControls }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavCtrl }};"><span style="width: 18px; height: 14px; display: flex; flex-direction: column; justify-content: space-between;"><span style="height: 2px; background: currentColor;"></span><span style="height: 2px; background: currentColor;"></span><span style="height: 2px; background: currentColor;"></span></span>Controls</button>
+            <button onClick="{{ onNavInsights }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavInsights }};"><span style="width: 16px; height: 16px; border: 2px solid currentColor; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><span style="width: 6px; height: 6px; border-radius: 50%; background: currentColor;"></span></span>Insights</button>
+            <button onClick="{{ onNavPost }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavPost }};"><span style="width: 16px; height: 16px; border: 2px solid currentColor; border-radius: 50%;"></span>Summary</button>
+          </div>
+
+          <!-- GUIDE OVERLAY (shared, dash preview) -->
+          <sc-if value="{{ showGuide }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; inset: 0; z-index: 70; display: flex; flex-direction: column; justify-content: flex-end;">
+              <button onClick="{{ onCloseGuide }}" style="position: absolute; inset: 0; background: rgba(0,0,0,.55);"></button>
+              <div style="position: relative; background: #15161d; color: #fff; border-radius: 30px 30px 0 0; max-height: 88%; overflow-y: auto; padding: 16px 24px 30px; animation: wl-sheet .38s cubic-bezier(.4,0,.2,1) both;">
+                <div style="width: 42px; height: 5px; border-radius: 3px; background: rgba(255,255,255,.25); margin: 0 auto 18px;"></div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span style="width: 30px; height: 30px; border-radius: 50%; background: {{ guideColor }}; box-shadow: 0 0 18px 0 {{ guideColor }};"></span>
+                  <div style="flex: 1;">
+                    <div style="font-size: 24px; font-weight: 900; letter-spacing: -.5px; line-height: 1;">{{ guideName }}</div>
+                    <div style="font-size: 13.5px; color: rgba(255,255,255,.55); margin-top: 3px;">{{ guideTagline }}</div>
+                  </div>
+                  <button onClick="{{ onCloseGuide }}" style="width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,.08); color: #fff; font-size: 18px;">×</button>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 18px;">
+                  <div style="flex: 1; background: #1f2027; border-radius: 12px; padding: 11px 8px; text-align: center;"><div style="font-size: 13px; font-weight: 800;">{{ guideSize }}</div><div style="font-size: 10px; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px;">Group</div></div>
+                  <div style="flex: 1; background: #1f2027; border-radius: 12px; padding: 11px 8px; text-align: center;"><div style="font-size: 13px; font-weight: 800;">{{ guideTime }}</div><div style="font-size: 10px; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px;">Time</div></div>
+                  <div style="flex: 1; background: #1f2027; border-radius: 12px; padding: 11px 8px; text-align: center;"><div style="font-size: 13px; font-weight: 800;">{{ guideSetting }}</div><div style="font-size: 10px; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px;">Setting</div></div>
+                </div>
+                <div style="background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 16px; margin-top: 16px;">
+                  <div style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4);">Why this game</div>
+                  <div style="font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.85); margin-top: 6px;">{{ guideWhy }}</div>
+                </div>
+                <div style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4); margin: 20px 2px 12px;">How to play</div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <sc-for list="{{ guideSteps }}" as="st" hint-placeholder-count="5">
+                    <div style="display: flex; gap: 13px; align-items: flex-start;">
+                      <span style="width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; background: {{ guideColor }}; color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center;">{{ st.n }}</span>
+                      <span style="font-size: 15px; line-height: 1.4; color: rgba(255,255,255,.9); padding-top: 2px;">{{ st.text }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ guideHasPrompts }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top: 22px;">
+                    <div style="font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4); margin: 0 2px 12px;">Sample prompts</div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                      <sc-for list="{{ guidePrompts }}" as="pr" hint-placeholder-count="3">
+                        <div style="background: #1f2027; border-radius: 12px; padding: 12px 15px; font-size: 14px; line-height: 1.4; color: rgba(255,255,255,.85);">{{ pr.text }}</div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ guideHasLeads }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top: 20px; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,.05); border-radius: 12px; padding: 13px 16px;">
+                    <span style="font-size: 13px; color: rgba(255,255,255,.5); font-weight: 600;">Leads into</span>
+                    <span style="font-size: 15px; font-weight: 800;">{{ guideLeads }}</span>
+                    <span style="margin-left: auto; font-size: 16px; color: rgba(255,255,255,.4);">→</span>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ============ FACILITATOR: CONTROLS ============ -->
+      <sc-if value="{{ facControls }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; background: #101116; color: #fff; display: flex; flex-direction: column;">
+          <div style="flex: 1; overflow-y: auto; padding: 64px 24px 96px; display: flex; flex-direction: column; gap: 18px;">
+            <div style="font-size: 24px; font-weight: 900; letter-spacing: -.5px;">Live controls</div>
+
+            <div style="background: #1a1c24; border: 1px solid rgba(255,255,255,.08); border-radius: 20px; padding: 18px;">
+              <div style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.45);">Push a prompt to every phone</div>
+              <div style="font-size: 12.5px; color: rgba(255,255,255,.4); margin-top: 4px;">Prompts for {{ activeGameName }}</div>
+              <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
+                <sc-for list="{{ prompts }}" as="pr" hint-placeholder-count="4">
+                  <button onClick="{{ pr.push }}" style="text-align: left; background: {{ pr.bg }}; border: 1px solid {{ pr.border }}; border-radius: 14px; padding: 13px 15px; display: flex; align-items: center; gap: 12px;">
+                    <span style="flex: 1; font-size: 14.5px; font-weight: 600; color: #fff;">{{ pr.text }}</span>
+                    <span style="font-size: 12px; font-weight: 800; color: {{ pr.tagColor }};">{{ pr.tag }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background: #1a1c24; border: 1px solid rgba(255,255,255,.08); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 14px;">
+              <div><div style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.45);">Community Molecules</div><div style="font-size: 12.5px; color: rgba(255,255,255,.4); margin-top: 4px;">Call a group size — every phone shows the number to form.</div></div>
+              <div style="display: flex; gap: 8px;">
+                <sc-for list="{{ callNums }}" as="n" hint-placeholder-count="5">
+                  <button onClick="{{ n.call }}" style="flex: 1; padding: 14px 0; border-radius: 14px; font-size: 20px; font-weight: 900; background: {{ n.bg }}; color: {{ n.fg }}; border: 1px solid {{ n.border }};">{{ n.val }}</button>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background: #1a1c24; border: 1px solid rgba(255,255,255,.08); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 14px;">
+              <div style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.45);">Colors</div>
+              <div style="display: flex; gap: 10px;">
+                <button onClick="{{ onReassign }}" style="flex: 1; padding: 14px; border-radius: 14px; background: rgba(255,255,255,.07); color: #fff; font-size: 14px; font-weight: 700; border: 1px solid rgba(255,255,255,.12);">Reassign groups</button>
+                <button onClick="{{ onToggleLock }}" style="flex: 1; padding: 14px; border-radius: 14px; background: {{ lockBg }}; color: {{ lockFg }}; font-size: 14px; font-weight: 700; border: 1px solid {{ lockBorder }};">{{ lockLabel }}</button>
+              </div>
+            </div>
+          </div>
+
+          <sc-if value="{{ showToast }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; bottom: 92px; left: 24px; right: 24px; background: #fff; color: #101116; border-radius: 14px; padding: 14px 18px; font-weight: 700; font-size: 14.5px; text-align: center; box-shadow: 0 12px 30px rgba(0,0,0,.4); animation: wl-float .35s both;">{{ toast }}</div>
+          </sc-if>
+
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 78px; background: #14151b; border-top: 1px solid rgba(255,255,255,.1); display: flex; padding: 10px 8px 22px;">
+            <button onClick="{{ onNavDash }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavDash }};"><span style="width: 18px; height: 14px; border: 2px solid currentColor; border-radius: 3px;"></span>Run</button>
+            <button onClick="{{ onNavControls }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavCtrl }};"><span style="width: 18px; height: 14px; display: flex; flex-direction: column; justify-content: space-between;"><span style="height: 2px; background: currentColor;"></span><span style="height: 2px; background: currentColor;"></span><span style="height: 2px; background: currentColor;"></span></span>Controls</button>
+            <button onClick="{{ onNavInsights }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavInsights }};"><span style="width: 16px; height: 16px; border: 2px solid currentColor; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><span style="width: 6px; height: 6px; border-radius: 50%; background: currentColor;"></span></span>Insights</button>
+            <button onClick="{{ onNavPost }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavPost }};"><span style="width: 16px; height: 16px; border: 2px solid currentColor; border-radius: 50%;"></span>Summary</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ FACILITATOR: POST-EVENT ============ -->
+      <sc-if value="{{ facPost }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; background: #101116; color: #fff; display: flex; flex-direction: column;">
+          <div style="flex: 1; overflow-y: auto; padding: 64px 24px 96px; display: flex; flex-direction: column; gap: 18px;">
+            <div><div style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.4);">Class wrapped</div><div style="font-size: 26px; font-weight: 900; letter-spacing: -.5px;">Today in numbers</div></div>
+            <div style="display: flex; gap: 10px;">
+              <div style="flex: 1; background: linear-gradient(150deg, #2e6bff, #173b8c); border-radius: 20px; padding: 18px;"><div style="font-size: 34px; font-weight: 900;">{{ postConnections }}</div><div style="font-size: 12.5px; color: rgba(255,255,255,.8); margin-top: 2px;">connections made</div></div>
+              <div style="flex: 1; background: linear-gradient(150deg, #2fbf71, #14663c); border-radius: 20px; padding: 18px;"><div style="font-size: 34px; font-weight: 900;">{{ postSeeking }}</div><div style="font-size: 12.5px; color: rgba(255,255,255,.85); margin-top: 2px;">joined a study group</div></div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+              <span style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.45);">Class roster</span>
+              <span style="font-size: 12px; color: rgba(255,255,255,.45);">connected today</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <sc-for list="{{ roster }}" as="r" hint-placeholder-count="5">
+                <div style="display: flex; align-items: center; gap: 12px; background: #1a1c24; border: 1px solid rgba(255,255,255,.07); border-radius: 14px; padding: 12px 14px;">
+                  <span style="width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; color: #fff; background: {{ r.chip }};">{{ r.initial }}</span>
+                  <span style="flex: 1;"><span style="display: block; font-weight: 700; font-size: 15.5px;">{{ r.name }}</span><span style="display: block; font-size: 12.5px; color: rgba(255,255,255,.5);">{{ r.contact }}</span></span>
+                  <span style="font-size: 11px; font-weight: 700; color: {{ r.flagColor }};">{{ r.flag }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <button onClick="{{ onExport }}" style="margin-top: 6px; width: 100%; padding: 16px; border-radius: 16px; background: rgba(255,255,255,.08); color: #fff; font-size: 15px; font-weight: 700; border: 1px solid rgba(255,255,255,.14);">Export class roster</button>
+          </div>
+
+          <sc-if value="{{ showToast }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; bottom: 92px; left: 24px; right: 24px; background: #fff; color: #101116; border-radius: 14px; padding: 14px 18px; font-weight: 700; font-size: 14.5px; text-align: center; box-shadow: 0 12px 30px rgba(0,0,0,.4); animation: wl-float .35s both;">{{ toast }}</div>
+          </sc-if>
+
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 78px; background: #14151b; border-top: 1px solid rgba(255,255,255,.1); display: flex; padding: 10px 8px 22px;">
+            <button onClick="{{ onNavDash }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavDash }};"><span style="width: 18px; height: 14px; border: 2px solid currentColor; border-radius: 3px;"></span>Run</button>
+            <button onClick="{{ onNavControls }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavCtrl }};"><span style="width: 18px; height: 14px; display: flex; flex-direction: column; justify-content: space-between;"><span style="height: 2px; background: currentColor;"></span><span style="height: 2px; background: currentColor;"></span><span style="height: 2px; background: currentColor;"></span></span>Controls</button>
+            <button onClick="{{ onNavInsights }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavInsights }};"><span style="width: 16px; height: 16px; border: 2px solid currentColor; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><span style="width: 6px; height: 6px; border-radius: 50%; background: currentColor;"></span></span>Insights</button>
+            <button onClick="{{ onNavPost }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavPost }};"><span style="width: 16px; height: 16px; border: 2px solid currentColor; border-radius: 50%;"></span>Summary</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ FACILITATOR: INSIGHTS ============ -->
+      <sc-if value="{{ facInsights }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; background: #101116; color: #fff; display: flex; flex-direction: column;">
+          <div style="flex: 1; overflow-y: auto; padding: 64px 24px 96px; display: flex; flex-direction: column; gap: 18px;">
+            <div><div style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.4);">Class culture</div><div style="font-size: 24px; font-weight: 900; letter-spacing: -.5px;">Insights</div></div>
+
+            <div style="display: flex; gap: 6px; background: #1a1c24; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 4px;">
+              <button onClick="{{ onInsightProgress }}" style="flex: 1; padding: 10px 0; border-radius: 10px; font-size: 12.5px; font-weight: 800; background: {{ insightProgressBg }}; color: {{ insightProgressFg }};">Progress</button>
+              <button onClick="{{ onInsightQuestions }}" style="flex: 1; padding: 10px 0; border-radius: 10px; font-size: 12.5px; font-weight: 800; background: {{ insightQuestionsBg }}; color: {{ insightQuestionsFg }};">Questions</button>
+              <button onClick="{{ onInsightSummary }}" style="flex: 1; padding: 10px 0; border-radius: 10px; font-size: 12.5px; font-weight: 800; background: {{ insightSummaryBg }}; color: {{ insightSummaryFg }};">Summary</button>
+            </div>
+
+            <sc-if value="{{ showInsightProgress }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.4;">Where each student is right now — not a grade, just a pulse check.</div>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <sc-for list="{{ progressRoster }}" as="p" hint-placeholder-count="5">
+                  <div style="background: #1a1c24; border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 14px 16px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                      <span style="font-size: 15px; font-weight: 800;">{{ p.name }}</span>
+                      <span style="font-size: 12px; font-weight: 700; color: {{ p.stageColor }};">{{ p.stage }}</span>
+                    </div>
+                    <div style="height: 6px; border-radius: 3px; background: rgba(255,255,255,.1); margin-top: 10px; overflow: hidden;">
+                      <div style="height: 100%; width: {{ p.pct }}; background: {{ p.barColor }}; border-radius: 3px;"></div>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px;">
+                      <span style="font-size: 12.5px; color: rgba(255,255,255,.5);">{{ p.doneCount }} of {{ p.totalCount }} activities</span>
+                      <span style="font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,.6);">{{ p.pct }}</span>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showInsightQuestions }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.4;">Pick which get-to-know-you questions go out to students. Answers come back to you only.</div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <sc-for list="{{ questionToggles }}" as="q" hint-placeholder-count="5">
+                  <button onClick="{{ q.toggle }}" style="text-align: left; display: flex; align-items: center; gap: 12px; background: #1a1c24; border: 1px solid {{ q.border }}; border-radius: 14px; padding: 13px 15px;">
+                    <span style="width: 20px; height: 20px; border-radius: 6px; flex-shrink: 0; background: {{ q.checkBg }}; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 900;">{{ q.check }}</span>
+                    <span style="flex: 1; font-size: 14.5px; font-weight: 600;">{{ q.text }}</span>
+                  </button>
+                </sc-for>
+              </div>
+              <div style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-top: 4px;">Common themes so far</div>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <sc-for list="{{ themeBars }}" as="t" hint-placeholder-count="4">
+                  <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; font-size: 13px; margin-bottom: 5px;"><span style="font-weight: 700;">{{ t.label }}</span><span style="color: rgba(255,255,255,.5);">{{ t.count }}</span></div>
+                    <div style="height: 8px; border-radius: 4px; background: rgba(255,255,255,.08); overflow: hidden;"><div style="height: 100%; width: {{ t.width }}; background: #6f9bff; border-radius: 4px;"></div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showInsightSummary }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.4;">The detailed version of the celebratory summary students see at wrap-up.</div>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <sc-for list="{{ groupSummaries }}" as="g" hint-placeholder-count="5">
+                  <div style="background: #1a1c24; border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 16px;">
+                    <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 12px; height: 12px; border-radius: 50%; background: {{ g.color }};"></span><span style="font-size: 15px; font-weight: 800;">{{ g.name }}</span></div>
+                    <div style="font-size: 13.5px; color: rgba(255,255,255,.7); margin-top: 8px; line-height: 1.4;">{{ g.common }}</div>
+                    <div style="font-size: 13.5px; color: rgba(255,255,255,.5); margin-top: 6px; line-height: 1.4;">Find: {{ g.unique }}</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;">
+                      <sc-for list="{{ g.themes }}" as="th" hint-placeholder-count="2">
+                        <span style="background: rgba(255,255,255,.1); font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">{{ th.text }}</span>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 78px; background: #14151b; border-top: 1px solid rgba(255,255,255,.1); display: flex; padding: 10px 8px 22px;">
+            <button onClick="{{ onNavDash }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavDash }};"><span style="width: 18px; height: 14px; border: 2px solid currentColor; border-radius: 3px;"></span>Run</button>
+            <button onClick="{{ onNavControls }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavCtrl }};"><span style="width: 18px; height: 14px; display: flex; flex-direction: column; justify-content: space-between;"><span style="height: 2px; background: currentColor;"></span><span style="height: 2px; background: currentColor;"></span><span style="height: 2px; background: currentColor;"></span></span>Controls</button>
+            <button onClick="{{ onNavInsights }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavInsights }};"><span style="width: 16px; height: 16px; border: 2px solid currentColor; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><span style="width: 6px; height: 6px; border-radius: 50%; background: currentColor;"></span></span>Insights</button>
+            <button onClick="{{ onNavPost }}" style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: {{ fnavPost }};"><span style="width: 16px; height: 16px; border: 2px solid currentColor; border-radius: 50%;"></span>Summary</button>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+
+  <!-- PROTOTYPE NAV -->
+  <div style="display: flex; align-items: center; gap: 8px; background: rgba(20,18,14,.06); border: 1px solid rgba(20,18,14,.1); border-radius: 30px; padding: 7px 8px; font-family: 'Archivo', sans-serif;">
+    <span style="font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(20,18,14,.4); padding: 0 8px;">View</span>
+    <button onClick="{{ onGuest }}" style="padding: 8px 16px; border-radius: 22px; font-size: 13px; font-weight: 700; background: {{ protoGuestBg }}; color: {{ protoGuestFg }};">Student</button>
+    <button onClick="{{ onFac }}" style="padding: 8px 16px; border-radius: 22px; font-size: 13px; font-weight: 700; background: {{ protoFacBg }}; color: {{ protoFacFg }};">Facilitator</button>
+    <button onClick="{{ onRestart }}" style="padding: 8px 14px; border-radius: 22px; font-size: 13px; font-weight: 700; background: transparent; color: rgba(20,18,14,.5);">↺ Start over</button>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 440, &quot;height&quot;: 980}, &quot;demoColor&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;blue&quot;, &quot;options&quot;: [&quot;blue&quot;, &quot;teal&quot;, &quot;purple&quot;, &quot;coral&quot;, &quot;gold&quot;], &quot;tsType&quot;: &quot;string&quot;}, &quot;revealStyle&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;bloom&quot;, &quot;options&quot;: [&quot;bloom&quot;, &quot;wave&quot;, &quot;snap&quot;], &quot;tsType&quot;: &quot;string&quot;}, &quot;phoneFrame&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = {
+    mode: 'landing',          // landing | guest | fac
+    gScreen: 'join',          // join | reveal | app
+    joinStep: 'code',         // code | name | assigning
+    code: '',
+    nameInput: '',
+    color: null,
+    revealStyle: '',
+    gTab: 'now',              // now | group | connect
+    connections: [
+      { name: 'Maya R.', tag: 'Met during Frequency', color: 'gold', hasLinkedin: true },
+      { name: 'Devin K.', tag: 'Same table', color: 'coral', hasLinkedin: false },
+    ],
+    justAddedName: null,
+    linkedinUrl: '',
+    linkedinSaved: false,
+    groupSheet: false,
+    groupPromptIdx: 0,
+    showGuide: false,
+    guideKey: 'frequency',
+    showCoach: false,
+    fScreen: 'setup',         // setup | agenda | dash | controls | post
+    headcount: 48,
+    agenda: ['frequency', 'molecules', 'truths', 'biography'],
+    launched: false,
+    seg: 0,
+    pushedPrompt: null,
+    calledNum: null,
+    colorsLocked: false,
+    toast: null,
+    showPrivacy: false,
+    introQuestions: [
+      { id: 'interest', text: 'What\u2019s something you\u2019re interested in outside of school?', active: true },
+      { id: 'hope', text: 'What\u2019s one thing you hope to learn this semester?', active: true },
+      { id: 'comfort', text: 'What helps you feel comfortable in a group?', active: true },
+      { id: 'knowme', text: 'What\u2019s one thing you want your professor to know about you?', active: false },
+      { id: 'hobby', text: 'What are your hobbies or interests?', active: false },
+    ],
+    introAnswers: {},
+    introSubmitted: false,
+    truthA: '',
+    truthB: '',
+    truthsSubmitted: false,
+    insightTab: 'progress',
+  };
+
+  COLORS = {
+    teal:   { name: 'Teal',   base: '#06b6a4', deep: '#022f2b', soft: '#7fe6da' },
+    purple: { name: 'Purple', base: '#7a4dff', deep: '#1b0a55', soft: '#c4acff' },
+    coral:  { name: 'Coral',  base: '#ff6b5e', deep: '#5a150e', soft: '#ffb3aa' },
+    blue:   { name: 'Blue',   base: '#2e6bff', deep: '#081a4d', soft: '#9fb9ff' },
+    gold:   { name: 'Gold',   base: '#f5a300', deep: '#4d3300', soft: '#ffd37a' },
+  };
+
+  GAMES = [
+    {
+      key: 'frequency', name: 'Frequency', color: '#06b6a4', mins: 18,
+      tagline: 'Find your color group', size: '5\u20136 people', time: '15\u201320 min', setting: 'Open room',
+      leads: 'Community Molecules',
+      do: 'Find the others whose phone shows the same color as yours.',
+      coach: 'Hold your phone up \u2014 look around for people whose color matches yours, then huddle up.',
+      why: 'The hardest moment for a new student is walking into a room full of strangers. Frequency gives you a mission the second you sit down \u2014 no awkward standing around, just find the others whose phones match.',
+      steps: [
+        'Open the app \u2014 your phone is already showing your assigned color.',
+        'Look around the room for others whose phone shows the same color.',
+        'When your full group of 5\u20136 is together, every phone glows steady.',
+        'A conversation prompt appears on the room screen \u2014 spend a few minutes on it.',
+        'Stay loose with your group until the next game begins.',
+      ],
+      prompts: [
+        'What\u2019s a food you could eat every day and never get tired of?',
+        'One place you\u2019ve always wanted to visit but haven\u2019t made it to yet?',
+        'A movie or show you\u2019ve rewatched more than once \u2014 and would watch again?',
+        'Morning person or night owl? Make your case to the group.',
+        'What made you pick this major or class? Keep it to one sentence.',
+      ],
+    },
+    {
+      key: 'molecules', name: 'Community Molecules', color: '#7a4dff', mins: 15,
+      tagline: 'Form groups on the fly', size: 'Whole class', time: '15 min', setting: 'Cleared floor',
+      leads: 'Collective Biography',
+      do: 'Listen for the number called and form a group of exactly that size.',
+      coach: 'Listen for the number \u2014 grab exactly that many people, fast! Your last group sticks together.',
+      why: 'A high-energy mixer that gets the whole class moving and laughing. The facilitator calls a number and you scramble into groups of exactly that size \u2014 building energy round by round until your final group is set.',
+      steps: [
+        'Clear the floor and gather in the open space.',
+        'The facilitator calls a group size \u2014 form a group of exactly that many.',
+        'Use the app to pick your color-coded answer to the round\u2019s question.',
+        'Five rounds, building energy: groups of 2, 4, 5, 3, 6.',
+        'Your last group becomes your team for the next game.',
+      ],
+      prompts: [],
+    },
+    {
+      key: 'biography', name: 'Collective Biography', color: '#ff6b5e', mins: 22,
+      tagline: 'What\u2019s true about all of you?', size: '4\u20136 people', time: '20\u201325 min', setting: 'Group tables',
+      leads: 'Wrap-up & connect',
+      do: 'Find statements that are unanimously true of everyone at your table.',
+      coach: 'Every sentence has to be true for ALL of you \u2014 if one person says \u201cnot me,\u201d it doesn\u2019t go in.',
+      why: 'Takes the connections the games just created and makes them real on paper. Groups find what is unanimously true about everyone \u2014 and the written biography becomes a lasting artifact of a connection that started with a color match.',
+      steps: [
+        'Sit with your color group at a table.',
+        'Propose statements and test each against every member.',
+        'Discovery phase: push past the obvious \u2014 values, quirks, experiences all count.',
+        'Write the agreed statements into a flowing paragraph, named after your color.',
+        'Read your biography aloud, then swap contacts with your table.',
+      ],
+      prompts: [],
+    },
+    {
+      key: 'truths', name: 'Two Truths Trade', color: '#2e6bff', mins: 12,
+      tagline: 'Roam, trade, and remember', size: 'Whole class', time: '10\u201315 min', setting: 'Open room',
+      leads: '',
+      do: 'Pair with a different color and trade your two truths out loud.',
+      coach: 'Find someone whose color is different from yours \u2014 swap your two truths, then remember who said what.',
+      why: 'Gets every student talking to people outside their color group fast. Instead of staying in a cluster, you move one-on-one, swap quick truths, and try to remember who said what \u2014 a low-stakes reason to start a conversation.',
+      steps: [
+        'Enter two true things about yourself in the app (kept private).',
+        'On \u201cGo,\u201d pair with anyone whose phone color is different from yours.',
+        'Trade your two truths out loud.',
+        'After 60 seconds the facilitator calls \u201cSwap!\u201d \u2014 find a new partner of a different color.',
+        'Run 4\u20135 rounds; aim to meet at least one person from every color.',
+      ],
+      prompts: [],
+    },
+    {
+      key: 'clusters', name: 'Concept Clusters', color: '#f5a300', mins: 18,
+      tagline: 'Connect color to course content', size: '4\u20136 people', time: '15\u201320 min', setting: 'Group tables',
+      leads: '',
+      do: 'Map everything your group knows about your assigned topic.',
+      coach: 'Brainstorm your topic, then link the ideas together \u2014 show how they connect on your sheet.',
+      why: 'The bridge between social connection and learning. Color groups connect their color to ideas, terms, or examples from the course \u2014 turning a get-to-know-you tool into an active-recall study session.',
+      steps: [
+        'Your group gets a topic, unit, or theme from the course.',
+        'Brainstorm everything you know about it for five minutes.',
+        'Build a \u201ccluster\u201d \u2014 a quick map linking your items together.',
+        'Present your cluster to the room in 90 seconds.',
+        'Other groups add one connection they noticed.',
+      ],
+      prompts: [],
+    },
+    {
+      key: 'story', name: 'Story Relay', color: '#06b6a4', mins: 12,
+      tagline: 'One line each, around the table', size: '5\u20136 people', time: '10\u201315 min', setting: 'Group tables',
+      leads: '',
+      do: 'Add exactly one sentence, then pass the story to the next person.',
+      coach: 'Just one sentence \u2014 continue the story, then pass the sheet to the next person in your group.',
+      why: 'A shared creative goal with zero academic pressure \u2014 perfect for breaking tension or re-energizing a long class. Each person adds one line, so everyone contributes and the results are usually funny, which bonds the group fast.',
+      steps: [
+        'Your group gets one sheet and a starting line from the room screen.',
+        'Write one sentence continuing the story, then pass it on.',
+        'Each person adds exactly one sentence.',
+        'The sheet goes around the group two or three times.',
+        'A volunteer reads the finished story aloud \u2014 then vote on the funniest.',
+      ],
+      prompts: [],
+    },
+  ];
+
+  WELCOME = { kind: 'welcome', name: 'Welcome', sub: 'Class intro & app join', dur: '10 min', color: '#2e6bff',
+    do: 'Open the app, find your color, and say hi to one person near you.',
+    coach: 'Open the app and find your color. Say hi to one person sitting near you while everyone joins.' };
+  WRAP = { kind: 'wrap', name: 'Wrap-up & connect', sub: 'Stay in touch', dur: '10 min', color: '#06b6a4',
+    do: 'Swap contacts with anyone you clicked with before you head out.',
+    coach: 'Before you leave \u2014 tap Connect to swap contacts with someone new from today.' };
+
+  MEMBERS = [
+    { name: 'Sam', dist: '2 steps away' },
+    { name: 'Priya', dist: '4 steps away' },
+    { name: 'Marcus', dist: 'across the room' },
+    { name: 'Lena', dist: 'by the windows' },
+    { name: 'Theo', dist: 'near the door' },
+    { name: 'Aisha', dist: 'across the room' },
+  ];
+
+  POOL = [
+    { name: 'Jordan P.', tag: 'Just connected', color: 'teal', hasLinkedin: true },
+    { name: 'Rosa M.', tag: 'Just connected', color: 'purple', hasLinkedin: false },
+    { name: 'Eli T.', tag: 'Just connected', color: 'gold', hasLinkedin: true },
+    { name: 'Hana W.', tag: 'Just connected', color: 'coral', hasLinkedin: false },
+  ];
+
+  PROGRESS_ROSTER = [
+    { name: 'Maya Rivera', pct: 100, done: 4, total: 4, stage: 'All done' },
+    { name: 'Devin Cole', pct: 75, done: 3, total: 4, stage: 'Almost there' },
+    { name: 'Priya Anand', pct: 50, done: 2, total: 4, stage: 'Midway through' },
+    { name: 'Marcus Bell', pct: 25, done: 1, total: 4, stage: 'Just getting started' },
+    { name: 'Lena Voss', pct: 0, done: 0, total: 4, stage: 'Hasn\u2019t started yet' },
+  ];
+
+  THEMES = [
+    { label: 'Music & live shows', count: 14 },
+    { label: 'Wants more group work', count: 9 },
+    { label: 'New to the area', count: 7 },
+    { label: 'Juggling a part-time job', count: 5 },
+  ];
+
+  GROUP_SUMMARIES = [
+    { key: 'teal', common: 'Everyone in Teal grew up playing a team sport.', unique: 'Someone in the group has run 3 marathons.', themes: ['Sports', 'Outdoors'] },
+    { key: 'purple', common: 'The whole group is still figuring out their major.', unique: 'One student speaks four languages.', themes: ['Undeclared', 'Travel'] },
+    { key: 'coral', common: 'Everyone loves live music.', unique: 'One student produces their own tracks.', themes: ['Music', 'Concerts'] },
+    { key: 'blue', common: 'Most of the group commutes to campus.', unique: 'One student bikes 8 miles each way.', themes: ['Commuters', 'Cycling'] },
+    { key: 'gold', common: 'Everyone\u2019s working through a tough elective together.', unique: 'One student already tutors it.', themes: ['Study group', 'Peer tutoring'] },
+  ];
+
+  ROSTER = [
+    { name: 'Maya Rivera', contact: 'maya.r@uni.edu', color: 'gold', seeking: true },
+    { name: 'Devin Cole', contact: 'd.cole@uni.edu', color: 'coral', seeking: true },
+    { name: 'Priya Anand', contact: 'priya.a@uni.edu', color: 'blue', seeking: false },
+    { name: 'Marcus Bell', contact: 'm.bell@uni.edu', color: 'teal', seeking: true },
+    { name: 'Lena Voss', contact: 'l.voss@uni.edu', color: 'purple', seeking: false },
+  ];
+
+  CALL_NUMS = [2, 3, 4, 5, 6];
+
+  _t = null; _t2 = null; _t3 = null; _t4 = null;
+
+  colorKey() { return this.state.color || this.props.demoColor || 'blue'; }
+  gameByKey(k) { return this.GAMES.find(g => g.key === k); }
+
+  groupInfo() {
+    const hc = this.state.headcount;
+    const g = Math.max(3, Math.min(10, Math.round(hc / 10)));
+    return { g, size: Math.max(2, Math.round(hc / g)) };
+  }
+
+  runOrder(st) {
+    const a = st || this.state;
+    const games = (a.agenda || []).map(k => this.gameByKey(k)).filter(Boolean).map(g => ({
+      kind: 'game', key: g.key, name: g.name, sub: g.tagline, dur: g.time, do: g.do, coach: g.coach, color: g.color,
+    }));
+    return [this.WELCOME, ...games, this.WRAP];
+  }
+  activeSeg(st) { const a = st || this.state; const r = this.runOrder(a); return r[Math.min(a.seg, r.length - 1)] || r[0]; }
+  activeKey(st) { const seg = this.activeSeg(st); return seg.kind === 'game' ? seg.key : seg.kind; }
+
+  // --- navigation ---
+  goGuest = () => { clearTimeout(this._t); this.setState({ mode: 'guest', gScreen: 'join', joinStep: 'code', color: null, gTab: 'now', showGuide: false, showCoach: false }); };
+  goFac = () => this.setState({ mode: 'fac', fScreen: this.state.launched ? 'dash' : 'setup', showGuide: false });
+  restart = () => { clearTimeout(this._t); this.setState({ mode: 'landing', gScreen: 'join', joinStep: 'code', code: '', nameInput: '', color: null, gTab: 'now', showGuide: false, showCoach: false, groupSheet: false, fScreen: 'setup', launched: false, seg: 0, pushedPrompt: null, calledNum: null, colorsLocked: false, toast: null }); };
+  back = () => this.setState({ mode: 'landing' });
+
+  // --- join ---
+  onCode = (e) => this.setState({ code: e.target.value });
+  scan = () => this.setState({ code: 'WAVE-7K2' });
+  submitCode = () => { if (!this.state.code.trim()) return; this.setState({ joinStep: 'name' }); };
+  backName = () => this.setState({ joinStep: 'code' });
+  onName = (e) => this.setState({ nameInput: e.target.value });
+  submitName = () => {
+    if (!this.state.nameInput.trim()) return;
+    this.setState({ joinStep: 'assigning', linkedinSaved: !!this.state.linkedinUrl.trim() });
+    this._t = setTimeout(() => this.play(this.props.revealStyle || 'bloom'), 1100);
+  };
+
+  // --- reveal ---
+  play = (style) => {
+    clearTimeout(this._t);
+    this.setState({ gScreen: 'reveal', color: this.props.demoColor || 'blue', revealStyle: '' });
+    this._t = setTimeout(() => this.setState({ revealStyle: style }), 40);
+  };
+  confirm = () => this.setState({ gScreen: 'app', gTab: 'now' });
+
+  // --- guest app ---
+  setTab = (t) => this.setState({ gTab: t, groupSheet: false });
+
+  // --- my color / swipe-up prompt ---
+  _swipeY = 0;
+  onGroupTouchStart = (e) => { this._swipeY = e.touches[0].clientY; };
+  onGroupTouchEnd = (e) => {
+    const d = e.changedTouches[0].clientY - this._swipeY;
+    if (d < -40) this.setState({ groupSheet: true });
+    else if (d > 40) this.setState({ groupSheet: false });
+  };
+  toggleGroupSheet = () => this.setState({ groupSheet: !this.state.groupSheet });
+  closeGroupSheet = () => this.setState({ groupSheet: false });
+  nextGroupPrompt = () => this.setState({ groupPromptIdx: this.state.groupPromptIdx + 1 });
+  share = () => this.addConn();
+  addConn = () => {
+    const taken = this.state.connections.map(c => c.name);
+    const next = this.POOL.find(p => !taken.includes(p.name)) || this.POOL[0];
+    this.setState({ connections: [{ ...next }, ...this.state.connections], justAddedName: next.name });
+    clearTimeout(this._t2); this._t2 = setTimeout(() => this.setState({ justAddedName: null }), 2600);
+  };
+
+  // --- privacy ---
+  openPrivacy = () => this.setState({ showPrivacy: true });
+  closePrivacy = () => this.setState({ showPrivacy: false });
+
+  // --- intro questions (guest) ---
+  onIntroAnswer = (id, e) => this.setState({ introAnswers: { ...this.state.introAnswers, [id]: e.target.value } });
+  submitIntro = () => this.setState({ introSubmitted: true });
+
+  // --- two truths entry (guest) ---
+  onTruthA = (e) => this.setState({ truthA: e.target.value });
+  onTruthB = (e) => this.setState({ truthB: e.target.value });
+  submitTruths = () => { if (!this.state.truthA.trim() || !this.state.truthB.trim()) return; this.setState({ truthsSubmitted: true }); };
+
+  // --- linkedin (guest) ---
+  onLinkedinInput = (e) => this.setState({ linkedinUrl: e.target.value });
+  saveLinkedin = () => { if (this.state.linkedinUrl.trim()) this.setState({ linkedinSaved: true }); };
+  editLinkedin = () => this.setState({ linkedinSaved: false });
+
+  // --- facilitator insights ---
+  setInsightTab = (t) => this.setState({ insightTab: t });
+  toggleIntroQuestion = (id) => this.setState({ introQuestions: this.state.introQuestions.map(q => q.id === id ? { ...q, active: !q.active } : q) });
+
+  // --- coach popup ---
+  showCoachPop = () => { this.setState({ showCoach: true }); clearTimeout(this._t4); this._t4 = setTimeout(() => this.setState({ showCoach: false }), 7000); };
+  dismissCoach = () => { clearTimeout(this._t4); this.setState({ showCoach: false }); };
+
+  _lastCoachKey = null;
+  componentDidUpdate() {
+    const nowApp = this.state.mode === 'guest' && this.state.gScreen === 'app';
+    if (!nowApp) { this._lastCoachKey = null; return; }
+    const curKey = this.activeKey(this.state);
+    if (curKey && curKey !== this._lastCoachKey) {
+      this._lastCoachKey = curKey;
+      this.showCoachPop();
+    }
+  }
+
+  // --- guide ---
+  openGuide = (key) => this.setState({ showGuide: true, guideKey: key });
+  openActiveGuide = () => { const seg = this.activeSeg(); if (seg.kind === 'game') this.setState({ showGuide: true, guideKey: seg.key }); };
+  closeGuide = () => this.setState({ showGuide: false });
+
+  // --- facilitator setup / agenda ---
+  head = (d) => this.setState({ headcount: Math.max(10, Math.min(100, this.state.headcount + d)) });
+  onRange = (e) => this.setState({ headcount: parseInt(e.target.value, 10) });
+  toAgenda = () => this.setState({ fScreen: 'agenda' });
+  agendaBack = () => this.setState({ fScreen: 'setup' });
+  toggleGame = (key) => {
+    const a = this.state.agenda;
+    this.setState({ agenda: a.includes(key) ? a.filter(k => k !== key) : [...a, key] });
+  };
+  moveGame = (key, dir) => {
+    const a = [...this.state.agenda];
+    const i = a.indexOf(key); const j = i + dir;
+    if (i < 0 || j < 0 || j >= a.length) return;
+    [a[i], a[j]] = [a[j], a[i]];
+    this.setState({ agenda: a });
+  };
+  removeGame = (key) => this.setState({ agenda: this.state.agenda.filter(k => k !== key) });
+  launch = () => { if (!this.state.agenda.length) { this.toast('Add at least one game first'); return; } this.setState({ launched: true, fScreen: 'dash', seg: 0 }); };
+
+  // --- facilitator live ---
+  advance = () => { const max = this.runOrder().length - 1; this.setState({ seg: Math.min(max, this.state.seg + 1) }); };
+  facNav = (s) => this.setState({ fScreen: s });
+  pushPrompt = (text) => { this.setState({ pushedPrompt: text }); this.toast('Prompt pushed to all phones'); };
+  callNumber = (n) => { this.setState({ calledNum: n }); this.toast('Called groups of ' + n); };
+  toggleLock = () => { const on = !this.state.colorsLocked; this.setState({ colorsLocked: on }); this.toast(on ? 'Colors locked' : 'Colors unlocked'); };
+  reassign = () => this.toast('Groups reshuffled & re-synced');
+  exportRoster = () => this.toast('Roster exported');
+  toast = (msg) => { this.setState({ toast: msg }); clearTimeout(this._t3); this._t3 = setTimeout(() => this.setState({ toast: null }), 2400); };
+
+  renderVals() {
+    const s = this.state;
+    const C = this.COLORS[this.colorKey()];
+    const isGuest = s.mode === 'guest';
+    const isApp = isGuest && s.gScreen === 'app';
+    const isReveal = isGuest && s.gScreen === 'reveal';
+    const isJoin = isGuest && s.gScreen === 'join';
+
+    const run = this.runOrder();
+    const segIdx = Math.min(s.seg, run.length - 1);
+    const seg = run[segIdx];
+    const next = run[segIdx + 1];
+    const gi = this.groupInfo();
+    const pct = run.length > 1 ? Math.round((segIdx / (run.length - 1)) * 100) : 0;
+
+    const navColor = (t) => s.gTab === t ? '#ffffff' : 'rgba(255,255,255,.5)';
+    const fnav = (sc) => s.fScreen === sc ? '#6f9bff' : 'rgba(255,255,255,.45)';
+    const pill = (st) => ({ bg: s.revealStyle === st ? '#fff' : 'rgba(255,255,255,.14)', fg: s.revealStyle === st ? C.deep : '#fff' });
+    const pb = pill('bloom'), pw = pill('wave'), ps = pill('snap');
+
+    const orbAnim = s.revealStyle === 'wave' ? 'wl-pop .6s .2s both, wl-glow 2.4s 1s ease-in-out infinite'
+      : s.revealStyle === 'snap' ? 'wl-snap .55s both, wl-glow 2.4s 1s ease-in-out infinite'
+      : 'wl-bloom .7s cubic-bezier(.34,1.4,.5,1) both, wl-glow 2.4s 1s ease-in-out infinite';
+
+    // timeline for dashboard
+    const timeline = run.map((r, i) => {
+      const done = i < segIdx, cur = i === segIdx;
+      const dot = r.kind === 'game' ? r.color : '#9aa3b2';
+      return {
+        num: '0' + (i + 1), name: r.name, sub: r.sub, dur: r.dur,
+        dot: cur ? '#6f9bff' : done ? '#54d68d' : 'rgba(255,255,255,.2)',
+        dotGlow: cur ? '0 0 14px 2px #6f9bff' : 'none',
+        cardBg: cur ? 'rgba(46,107,255,.14)' : 'transparent',
+        cardBorder: cur ? 'rgba(111,155,255,.5)' : 'rgba(255,255,255,.07)',
+        nameColor: cur ? '#fff' : done ? 'rgba(255,255,255,.6)' : 'rgba(255,255,255,.85)',
+        tag: cur ? 'NOW' : done ? 'done' : '',
+        tagColor: cur ? '#6f9bff' : 'rgba(255,255,255,.4)',
+        preview: r.kind === 'game' ? () => this.openGuide(r.key) : () => {},
+      };
+    });
+
+    // agenda builder
+    const agendaItems = s.agenda.map((k, i) => {
+      const g = this.gameByKey(k);
+      return { key: k, name: g.name, num: i + 1, dot: g.color,
+        up: () => this.moveGame(k, -1), down: () => this.moveGame(k, 1), remove: () => this.removeGame(k) };
+    });
+    const totalMins = 20 + s.agenda.reduce((sum, k) => sum + (this.gameByKey(k).mins || 0), 0);
+    const library = this.GAMES.map(g => {
+      const added = s.agenda.includes(g.key);
+      return { key: g.key, name: g.name, tagline: g.tagline, dot: g.color,
+        meta: g.size + ' \u00b7 ' + g.time + ' \u00b7 ' + g.setting,
+        border: added ? 'rgba(111,155,255,.4)' : 'rgba(255,255,255,.08)',
+        preview: () => this.openGuide(g.key), toggle: () => this.toggleGame(g.key),
+        toggleLabel: added ? 'Added \u2713  \u00b7  Remove' : '+ Add to agenda',
+        toggleBg: added ? 'rgba(46,107,255,.16)' : 'rgba(255,255,255,.05)',
+        toggleFg: added ? '#6f9bff' : '#fff',
+        toggleBorder: added ? 'rgba(111,155,255,.4)' : 'rgba(255,255,255,.12)' };
+    });
+
+    // guide
+    const guide = this.gameByKey(s.guideKey) || this.GAMES[0];
+
+    // controls prompts (active game's prompts, fallback Frequency)
+    const activeGame = seg.kind === 'game' ? this.gameByKey(seg.key) : null;
+    const promptGame = (activeGame && activeGame.prompts.length) ? activeGame : this.GAMES[0];
+    const prompts = promptGame.prompts.map((text) => {
+      const pushed = s.pushedPrompt === text;
+      return { text, push: () => this.pushPrompt(text), bg: pushed ? 'rgba(46,107,255,.18)' : 'rgba(255,255,255,.05)',
+        border: pushed ? 'rgba(111,155,255,.5)' : 'rgba(255,255,255,.1)',
+        tag: pushed ? 'LIVE' : 'Push', tagColor: pushed ? '#6f9bff' : 'rgba(255,255,255,.5)' };
+    });
+    const callNums = this.CALL_NUMS.map(n => {
+      const on = s.calledNum === n;
+      return { val: n, call: () => this.callNumber(n),
+        bg: on ? '#7a4dff' : 'rgba(255,255,255,.06)', fg: '#fff',
+        border: on ? 'rgba(196,172,255,.6)' : 'rgba(255,255,255,.1)' };
+    });
+
+    const conns = s.connections.map(c => ({ name: c.name, tag: c.tag, initial: c.name[0], chip: this.COLORS[c.color].base, hasLinkedin: !!c.hasLinkedin }));
+
+    // intro questions (guest, welcome stage)
+    const activeIntroQuestions = s.introQuestions.filter(q => q.active).map(q => ({
+      id: q.id, text: q.text, answer: s.introAnswers[q.id] || '', onInput: (e) => this.onIntroAnswer(q.id, e),
+    }));
+    const glance = this.GROUP_SUMMARIES.find(g => g.key === this.colorKey()) || this.GROUP_SUMMARIES[0];
+
+    // facilitator insights
+    const progressRoster = this.PROGRESS_ROSTER.map(p => ({
+      name: p.name, pct: p.pct + '%', doneCount: p.done, totalCount: p.total, stage: p.stage,
+      stageColor: p.pct >= 100 ? '#54d68d' : p.pct === 0 ? 'rgba(255,255,255,.4)' : '#6f9bff',
+      barColor: p.pct >= 100 ? '#54d68d' : p.pct === 0 ? 'rgba(255,255,255,.2)' : '#6f9bff',
+    }));
+    const questionToggles = s.introQuestions.map(q => ({
+      text: q.text, toggle: () => this.toggleIntroQuestion(q.id), check: q.active ? '\u2713' : '',
+      checkBg: q.active ? '#2e6bff' : 'rgba(255,255,255,.08)', border: q.active ? 'rgba(111,155,255,.4)' : 'rgba(255,255,255,.08)',
+    }));
+    const maxTheme = Math.max(...this.THEMES.map(t => t.count));
+    const themeBars = this.THEMES.map(t => ({ label: t.label, count: t.count, width: Math.round((t.count / maxTheme) * 100) + '%' }));
+    const groupSummaries = this.GROUP_SUMMARIES.map(g => ({
+      name: this.COLORS[g.key].name, color: this.COLORS[g.key].base, common: g.common, unique: g.unique,
+      themes: g.themes.map(text => ({ text })),
+    }));
+    const insightPill = (t) => ({ bg: s.insightTab === t ? '#2e6bff' : 'transparent', fg: s.insightTab === t ? '#fff' : 'rgba(255,255,255,.55)' });
+    const ip = insightPill('progress'), iq = insightPill('questions'), is = insightPill('summary');
+    const members = this.MEMBERS.map(m => ({ name: m.name, dist: m.dist, initial: m.name[0] }));
+    const roster = this.ROSTER.map(r => ({ name: r.name, contact: r.contact, initial: r.name[0], chip: this.COLORS[r.color].base,
+      flag: r.seeking ? 'wants follow-up' : '', flagColor: '#54d68d' }));
+    const facColors = ['teal', 'purple', 'coral', 'blue', 'gold'].slice(0, Math.min(5, gi.g)).map(k => ({ name: this.COLORS[k].name, hex: this.COLORS[k].base }));
+
+    return {
+      // theming
+      c: C.base, cDeep: C.deep, cSoft: C.soft, cName: C.name,
+      bezelPad: this.props.phoneFrame === false ? '0px' : '13px',
+      bezelRadius: this.props.phoneFrame === false ? '34px' : '46px',
+      screenRadius: '34px',
+      guestName: s.nameInput.trim() || 'there',
+
+      // screen flags
+      isLanding: s.mode === 'landing',
+      isJoinCode: isJoin && s.joinStep === 'code',
+      isJoinName: isJoin && s.joinStep === 'name',
+      isAssigning: isJoin && s.joinStep === 'assigning',
+      isReveal, isApp,
+      tabNow: isApp && s.gTab === 'now',
+      tabGroup: isApp && s.gTab === 'group',
+      tabConnect: isApp && s.gTab === 'connect',
+      facSetup: s.mode === 'fac' && s.fScreen === 'setup',
+      facAgenda: s.mode === 'fac' && s.fScreen === 'agenda',
+      facDash: s.mode === 'fac' && s.fScreen === 'dash',
+      facControls: s.mode === 'fac' && s.fScreen === 'controls',
+      facPost: s.mode === 'fac' && s.fScreen === 'post',
+      facInsights: s.mode === 'fac' && s.fScreen === 'insights',
+
+      // nav handlers
+      onGuest: this.goGuest, onFac: this.goFac, onRestart: this.restart, onBack: this.back, onBackName: this.backName,
+      protoGuestBg: isGuest ? '#0a0b0e' : 'transparent', protoGuestFg: isGuest ? '#fff' : 'rgba(20,18,14,.7)',
+      protoFacBg: s.mode === 'fac' ? '#0a0b0e' : 'transparent', protoFacFg: s.mode === 'fac' ? '#fff' : 'rgba(20,18,14,.7)',
+
+      // join
+      code: s.code, onCode: this.onCode, onScan: this.scan, onSubmitCode: this.submitCode,
+      codeBtnBg: s.code.trim() ? '#fff' : 'rgba(255,255,255,.12)', codeBtnFg: s.code.trim() ? '#0c0d12' : 'rgba(255,255,255,.4)',
+      nameInput: s.nameInput, onName: this.onName, onSubmitName: this.submitName,
+      nameBtnBg: s.nameInput.trim() ? '#fff' : 'rgba(255,255,255,.12)', nameBtnFg: s.nameInput.trim() ? '#0c0d12' : 'rgba(255,255,255,.4)',
+
+      // reveal
+      revWave: s.revealStyle === 'wave', revSnap: s.revealStyle === 'snap',
+      orbAnim,
+      onBloom: () => this.play('bloom'), onWave: () => this.play('wave'), onSnap: () => this.play('snap'), onConfirm: this.confirm,
+      pillBloomBg: pb.bg, pillBloomFg: pb.fg, pillWaveBg: pw.bg, pillWaveFg: pw.fg, pillSnapBg: ps.bg, pillSnapFg: ps.fg,
+
+      // home
+      segName: seg.name, segDo: seg.do, segDur: seg.dur, nextSegName: next ? next.name : 'You\u2019re all set',
+      segIsGame: seg.kind === 'game', onOpenActiveGuide: this.openActiveGuide,
+      hasPrompt: !!s.pushedPrompt, pushedText: s.pushedPrompt || '',
+
+      // coach popup
+      showCoachNow: s.showCoach && isApp && !s.showGuide,
+      coachText: seg.coach || '', coachGameName: seg.name,
+      onDismissCoach: this.dismissCoach,
+
+      // guide overlay
+      showGuide: s.showGuide,
+      onCloseGuide: this.closeGuide,
+      guideName: guide.name, guideTagline: guide.tagline, guideColor: guide.color,
+      guideSize: guide.size, guideTime: guide.time, guideSetting: guide.setting,
+      guideWhy: guide.why,
+      guideSteps: guide.steps.map((text, i) => ({ n: i + 1, text })),
+      guideHasPrompts: guide.prompts.length > 0,
+      guidePrompts: guide.prompts.map(text => ({ text })),
+      guideHasLeads: !!guide.leads, guideLeads: guide.leads,
+
+      // my color / swipe-up prompt
+      groupSheet: s.groupSheet, groupHandle: !s.groupSheet,
+      onGroupTouchStart: this.onGroupTouchStart, onGroupTouchEnd: this.onGroupTouchEnd,
+      onToggleGroupSheet: this.toggleGroupSheet, onCloseGroupSheet: this.closeGroupSheet,
+      onGroupNextPrompt: this.nextGroupPrompt,
+      groupPrompt: (function () { const pool = (activeGame && activeGame.prompts.length) ? activeGame.prompts : this.GAMES[0].prompts; return pool[s.groupPromptIdx % pool.length]; }).call(this),
+
+      // connect
+      onShare: this.share, connections: conns, connCount: s.connections.length,
+      showJustAdded: !!s.justAddedName, justAddedName: s.justAddedName || '',
+      linkedinUrl: s.linkedinUrl, linkedinSaved: s.linkedinSaved, linkedinEditing: !s.linkedinSaved,
+      onLinkedinInput: this.onLinkedinInput, onSaveLinkedin: this.saveLinkedin, onEditLinkedin: this.editLinkedin,
+
+      // privacy
+      showPrivacy: s.showPrivacy, onOpenPrivacy: this.openPrivacy, onClosePrivacy: this.closePrivacy,
+
+      // intro questions (welcome stage)
+      showIntroCard: isApp && s.gTab === 'now' && seg.kind === 'welcome' && !s.introSubmitted,
+      showIntroDone: isApp && s.gTab === 'now' && seg.kind === 'welcome' && s.introSubmitted,
+      introQuestions: activeIntroQuestions, onSubmitIntro: this.submitIntro,
+
+      // two truths entry (truths game)
+      showTruthsCard: isApp && s.gTab === 'now' && seg.kind === 'game' && seg.key === 'truths' && !s.truthsSubmitted,
+      showTruthsDone: isApp && s.gTab === 'now' && seg.kind === 'game' && seg.key === 'truths' && s.truthsSubmitted,
+      truthA: s.truthA, truthB: s.truthB, onTruthA: this.onTruthA, onTruthB: this.onTruthB, onSubmitTruths: this.submitTruths,
+
+      // group at a glance (wrap stage)
+      showGroupGlance: isApp && s.gTab === 'now' && seg.kind === 'wrap',
+      glanceThemes: glance.themes.map(text => ({ text })), glanceCommon: glance.common, glanceUnique: glance.unique,
+
+      // tab bar colors
+      onTabNow: () => this.setTab('now'), onTabGroup: () => this.setTab('group'), onTabConnect: () => this.setTab('connect'),
+      navNow: navColor('now'), navGroup: navColor('group'), navConnect: navColor('connect'),
+
+      // facilitator setup
+      headcount: s.headcount, onHeadDown: () => this.head(-1), onHeadUp: () => this.head(1), onHeadRange: this.onRange,
+      sugGroups: gi.g, sugSize: gi.size, facColors, onToAgenda: this.toAgenda,
+
+      // facilitator agenda
+      onAgendaBack: this.agendaBack, agendaItems, agendaEmpty: s.agenda.length === 0,
+      gameCount: s.agenda.length, totalMins, library,
+      onLaunch: this.launch,
+      launchBg: s.agenda.length ? '#2e6bff' : 'rgba(255,255,255,.1)', launchFg: s.agenda.length ? '#fff' : 'rgba(255,255,255,.4)',
+
+      // facilitator dash
+      statGuests: 41, statGroups: s.launched ? gi.g : 0, progressPct: pct + '%',
+      timeline, onAdvance: this.advance,
+      advanceLabel: segIdx >= run.length - 1 ? 'End class' : 'Advance to ' + (next ? next.name : 'Wrap-up'),
+
+      // facilitator controls
+      activeGameName: promptGame.name, prompts, callNums,
+      onReassign: this.reassign, onToggleLock: this.toggleLock,
+      lockLabel: s.colorsLocked ? 'Colors locked' : 'Lock colors',
+      lockBg: s.colorsLocked ? 'rgba(245,163,0,.18)' : 'rgba(255,255,255,.07)', lockFg: s.colorsLocked ? '#f5a300' : '#fff',
+      lockBorder: s.colorsLocked ? 'rgba(245,163,0,.5)' : 'rgba(255,255,255,.12)',
+      showToast: !!s.toast, toast: s.toast || '',
+
+      // facilitator post
+      postConnections: 63, postSeeking: 18, roster, onExport: this.exportRoster,
+
+      // fac nav
+      onNavDash: () => this.facNav('dash'), onNavControls: () => this.facNav('controls'), onNavPost: () => this.facNav('post'),
+      onNavInsights: () => this.facNav('insights'),
+      fnavDash: fnav('dash'), fnavCtrl: fnav('controls'), fnavPost: fnav('post'), fnavInsights: fnav('insights'),
+
+      // facilitator insights
+      onInsightProgress: () => this.setInsightTab('progress'), onInsightQuestions: () => this.setInsightTab('questions'), onInsightSummary: () => this.setInsightTab('summary'),
+      insightProgressBg: ip.bg, insightProgressFg: ip.fg, insightQuestionsBg: iq.bg, insightQuestionsFg: iq.fg, insightSummaryBg: is.bg, insightSummaryFg: is.fg,
+      showInsightProgress: s.insightTab === 'progress', showInsightQuestions: s.insightTab === 'questions', showInsightSummary: s.insightTab === 'summary',
+      progressRoster, questionToggles, themeBars, groupSummaries,
+    };
+  }
+}
+</script>
+</body>
+</html>
