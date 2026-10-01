@@ -1,0 +1,31 @@
+.join-h1 { font-size: 32px; line-height: 1.1; margin: 0; font-weight: 900; letter-spacing: -0.5px; text-wrap: balance; }
+.label-row { display: flex; justify-content: space-between; align-items: baseline; }
+.visibility { font-size: 12px; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+.lobby-center { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 14px; }
+.lobby-rings { position: relative; width: 120px; height: 120px; margin-bottom: 24px; }
+.lobby-rings span {
+  position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(255,255,255,.5);
+  animation: wl-ring 2.4s ease-out infinite;
+}
+.lobby-rings span:nth-child(2) { animation-delay: .8s; }
+.lobby-rings span:nth-child(3) { animation-delay: 1.6s; }
+
+.my-group {
+  min-height: 100dvh; padding: max(28px, env(safe-area-inset-top)) 28px 40px;
+  display: flex; flex-direction: column; align-items: center; gap: 28px; text-align: center;
+}
+.orb {
+  margin-top: 24px; width: min(244px, 60vw); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #fff 0%, var(--cs) 30%, var(--c) 100%);
+  animation: wl-bloom .7s cubic-bezier(.34, 1.4, .5, 1) both, wl-glow 2.4s 1s ease-in-out infinite;
+  display: flex; align-items: center; justify-content: center;
+}
+.orb-symbol { font-size: 72px; color: rgba(255,255,255,.9); text-shadow: 0 2px 12px rgba(0,0,0,.25); }
+.youre { font-size: 20px; font-weight: 500; color: rgba(255,255,255,.75); }
+.group-name { font-size: 64px; font-weight: 900; letter-spacing: -2px; line-height: 1; }
+.group-name span { font-size: .55em; vertical-align: middle; }
+.my-group-text p { color: rgba(255,255,255,.75); max-width: 300px; margin: 16px auto 0; line-height: 1.45; font-size: 16px; }
+.mates { width: 100%; max-width: 400px; background: rgba(0,0,0,.25); border-radius: 20px; padding: 16px 20px; animation: wl-float .5s both; text-align: left; }
+.mates ul { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.mates li { background: rgba(255,255,255,.14); padding: 8px 14px; border-radius: 999px; font-weight: 700; }

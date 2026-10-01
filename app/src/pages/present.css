@@ -1,0 +1,25 @@
+.present { min-height: 100dvh; padding: 32px 48px; display: flex; flex-direction: column; gap: 24px; }
+.present-top { display: flex; justify-content: space-between; align-items: center; }
+.present-top .wordmark { font-size: 28px; }
+.present-controls { display: flex; gap: 10px; opacity: .55; }
+.present-controls:hover { opacity: 1; }
+.present-join { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8vw; }
+.present-join .eyebrow { font-size: 20px; }
+.present-url { font-size: clamp(28px, 3.4vw, 52px); font-weight: 500; }
+.present-code { font-size: clamp(80px, 11vw, 180px); font-weight: 500; letter-spacing: .08em; line-height: 1; }
+.present-count { margin-top: 32px; display: flex; align-items: center; gap: 14px; font-size: clamp(24px, 2.6vw, 40px); color: var(--muted); }
+.present-count strong { color: var(--text); font-weight: 900; }
+.present-count .livedot { width: 16px; height: 16px; }
+.present-qr { display: flex; flex-direction: column; align-items: center; gap: 14px; font-size: 22px; color: var(--muted); }
+.present-qr svg { width: min(36vw, 46vh); height: auto; border-radius: 20px; }
+.present-groups h1 { font-size: 56px; margin: 0; font-weight: 900; letter-spacing: -1px; }
+.present-groups > p { font-size: 22px; margin: 8px 0 24px; }
+.present-group-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.present-group { background: var(--surface); border-radius: 22px; padding: 20px; }
+.present-group ul { list-style: none; padding: 0; margin: 14px 0 0; font-size: 24px; line-height: 1.5; }
+
+@media (max-width: 760px) {
+  .present { padding: 20px; }
+  .present-join { flex-direction: column; gap: 32px; }
+  .present-qr svg { width: 70vw; }
+}
